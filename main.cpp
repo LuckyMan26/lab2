@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     b+=c;
     c+=b;
     std::cout<<b<<std::endl;
+    std::cout<<b--<<std::endl;
     w.show();
     return a.exec();
 }

@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-
+#include <iostream>
 #include <QApplication>
 
 int main(int argc, char *argv[])
@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
     int c=3;
     b+=c;
     c+=b;
+    std::cout<<b<<std::endl;
     w.show();
     return a.exec();
 }

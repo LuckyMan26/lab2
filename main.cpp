@@ -1,17 +1,17 @@
 #include "mainwindow.h"
 #include <iostream>
 #include <QApplication>
-
+#include "linkedlist.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    int b=2;
-    int c=3;
-    b+=c;
-    c+=b;
-    std::cout<<b<<std::endl;
-    std::cout<<b--<<std::endl;
+    LinkedList l(nullptr,nullptr);
+    l.append(2);
+    l.append(5);
+    l.append(8);
+    l.append(3);
+    l.print();
     w.show();
     return a.exec();
 }

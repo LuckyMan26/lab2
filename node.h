@@ -5,14 +5,16 @@
 
 class Node : public QObject
 {
-    Q_OBJECT
-public:
-    explicit Node(QObject *parent = nullptr);
-    Node(QObject *parent = nullptr,int data=-1,Node* next=nullptr);
 
-private:
+    Q_OBJECT;
     int data;
-    Node* next;
+
+public:
+     Node* next;
+    explicit Node(QObject *parent);
+    explicit Node(int dat=-1,Node* next=nullptr);
+    int getData();
+
 signals:
 
 };

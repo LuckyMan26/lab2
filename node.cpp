@@ -5,9 +5,13 @@ Node::Node(QObject *parent)
 {
 
 }
-Node::Node(QObject *parent,int data=-1,Node* nxt=nullptr)
-    : QObject{parent}
+Node::Node(int dat,Node* nxt)
 {
-   this->data=data;
-    this->next=nxt;
+this->data=dat;
+this->next=nxt;
+
 }
+int Node::getData(){
+    return this->data;
+}
+

@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
     int b=2;
     int c=3;
     b+=c;
+    c+=b;
     w.show();
     return a.exec();
 }

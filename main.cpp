@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include <iostream>
 #include <QApplication>
+#include <QTableView>
+#include <QModelIndex>
 #include "linkedlist.h"
 int main(int argc, char *argv[])
 {
@@ -12,6 +14,8 @@ int main(int argc, char *argv[])
     l.append(8);
     l.append(3);
     l.print();
+
+
     w.show();
     return a.exec();
 }

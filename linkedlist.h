@@ -8,10 +8,14 @@ class LinkedList : public QObject
     Q_OBJECT
     Node* head=nullptr;
 public:
-    explicit LinkedList(Node* head=nullptr,QObject *parent = nullptr);
-    explicit LinkedList();
+    LinkedList(Node* head=nullptr,QObject *parent = nullptr);
+
     void append(int n);
     void print();
+    int getLength() const;
+    void operator=(const LinkedList l){
+        this->head=l.head;
+    }
 signals:
 
 };

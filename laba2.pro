@@ -12,12 +12,16 @@ SOURCES += \
     linkedlist.cpp \
     main.cpp \
     mainwindow.cpp \
-    node.cpp
+    mymodel.cpp \
+    node.cpp \
+    qbase.cpp
 
 HEADERS += \
     linkedlist.h \
     mainwindow.h \
-    node.h
+    mymodel.h \
+    node.h \
+    qbase.h
 
 FORMS += \
     mainwindow.ui
@@ -26,3 +30,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    images.qrc

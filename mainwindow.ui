@@ -14,8 +14,47 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <widget class="QMenu" name="menuNew">
+     <property name="title">
+      <string>New</string>
+     </property>
+     <addaction name="actionLinkedList"/>
+     <addaction name="actionBST"/>
+     <addaction name="actionAVL"/>
+    </widget>
+    <addaction name="menuNew"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionLinkedList">
+   <property name="text">
+    <string>LinkedList</string>
+   </property>
+  </action>
+  <action name="actionBST">
+   <property name="text">
+    <string>BST </string>
+   </property>
+  </action>
+  <action name="actionAVL">
+   <property name="text">
+    <string>AVL</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

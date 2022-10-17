@@ -6,10 +6,7 @@ LinkedList::LinkedList(Node* head,QObject *parent)
 {
 
 }
-LinkedList::LinkedList()
-{
-this->head=nullptr;
-}
+
 void LinkedList::append(int n){
     Node* temp=new Node(n);
     Node* curr=head;
@@ -30,4 +27,13 @@ void LinkedList::print(){
         std::cout<<curr->getData()<<" ";
         curr=curr->next;
     }
+}
+int LinkedList::getLength() const{
+    Node* temp=this->head;
+    int len=0;
+    while(temp){
+        len++;
+        temp=temp->next;
+    }
+    return len;
 }

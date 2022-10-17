@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/buscar.png</file>
+        <file>images/cascata.png</file>
+        <file>images/config.png</file>
+        <file>images/config_estruturas.png</file>
+        <file>images/delete.png</file>
+        <file>images/favicon.ico</file>
+        <file>images/favicon2.ico</file>
+        <file>images/fechar_tudo.png</file>
+        <file>images/inserir.png</file>
+        <file>images/lado_a_lado.png</file>
+        <file>images/limpar.png</file>
+        <file>images/logo.png</file>
+        <file>images/logo_qt.jpeg</file>
+        <file>images/logo_qt.png</file>
+        <file>images/logotipo_base.png</file>
+        <file>images/logotipo_base.xcf</file>
+        <file>images/logotipo_base2.png</file>
+        <file>images/Resource.qrc</file>
+        <file>images/sair.png</file>
+        <file>images/screenshot.png</file>
+        <file>images/update.png</file>
+        <file>images/zoomIn.png</file>
+        <file>images/zoomOut.png</file>
+    </qresource>
+</RCC>

@@ -5,19 +5,20 @@
 #include <QSplitter>
 #include <QToolBar>
 #include <QMenuBar>
-#include <iostream>
+#include <QWidget>
 #include <QtGui>
-
+#include <QMdiSubWindow>
+#include "linkedlist.h"
+#include <iostream>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    mdiArea = new QMdiArea;
-    mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    /*Coloca o MdiArea como sendo principal na janela*/
-    setCentralWidget(mdiArea);
 
+    /*Coloca o MdiArea como sendo principal na janela*/
+
+    windowMapper = new QSignalMapper(this);
+    connect(windowMapper, SIGNAL(mapped(QWidget*)),this, SLOT(setActiveSubWindow(QWidget*)));
     //createAction();
     createMenus();
     createToolBox();
@@ -36,6 +37,11 @@ void MainWindow::createAction(){
     newAct->setStatusTip(tr("Create a new file"));
     //connect(newAct,SIGNAL(triggered), this, SLOT(close()));
 
+}
+void MainWindow::setActiveSubWindow(QWidget *window)
+{
+    if (!window) return;
+    mdiArea->setActiveSubWindow(qobject_cast<QMdiSubWindow *>(window));
 }
 void MainWindow::createMenus()
 {
@@ -71,8 +77,8 @@ void MainWindow::createToolBar()
     btnDelete->setIcon(QIcon(":/images/delete.png"));
     btnSearch->setIcon(QIcon(":/images/buscar.png"));
     /*Adiciona os eventos aos botões*/
-    connect(btnInsert, SIGNAL(clicked()),this, SLOT(inserirValor()));
-    connect(btnDelete, SIGNAL(clicked()),this, SLOT(inserirValor()));
+   connect(btnInsert, SIGNAL(clicked()),this, SLOT(insertData()));
+   connect(btnDelete, SIGNAL(clicked()),this, SLOT(this->close()));
 
     /*Entrada de Dados*/
     lneInserir = new QLineEdit;
@@ -95,10 +101,42 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+void MainWindow::insertData(int x)
+{
 
+    int value=lneInserir->text().toInt();
+    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+    for(int i=0;i<windows.size();i++){
+         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         child->insert(value);
+    }
+    for(int i=0;i<windows.size();i++){
+        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+        child->update();
+    }
+}
 
+QBase* MainWindow::createLinkedList(){
+
+    mdiArea = new QMdiArea;
+    mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    setCentralWidget(mdiArea);
+    windowMapper = new QSignalMapper(this);
+    connect(windowMapper, SIGNAL(mapped(QWidget*)),this, SLOT(setActiveSubWindow(QWidget*)));
+
+    LinkedList* l=new LinkedList();
+
+    l->setWindowTitle("LinkedList");
+    l->setMinimumSize(300,300);
+    mdiArea->addSubWindow(l);
+
+    l->show();
+
+    return l;
+}
 void MainWindow::on_actionLinkedList_triggered()
 {
-    createLinkedList();
+   createLinkedList();
 }
 

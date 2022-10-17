@@ -1,13 +1,15 @@
-#include "linkedlist.h"
 #include <iostream>
-LinkedList::LinkedList(Node* head,QObject *parent)
-    : QObject{parent},
-      head{head}
+#include <QGraphicsItem>
+#include "linkedlist.h"
+#include "node.h"
+LinkedList::LinkedList(Node* head):
+    QBase()
 {
-
+this->head=head;
 }
 
-void LinkedList::append(int n){
+void LinkedList::insert(int n){
+
     Node* temp=new Node(n);
     Node* curr=head;
     if(curr==nullptr){
@@ -17,6 +19,11 @@ void LinkedList::append(int n){
     while(curr->next){
         curr=curr->next;
     }
+    int x=curr->getX();
+    int y=curr->getY();
+    temp->SetX(x+70);
+    temp->SetY(y);
+    scene()->addItem(temp);
     curr->next=temp;
     }
 

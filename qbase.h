@@ -2,13 +2,19 @@
 #define QBASE_H
 
 #include <QObject>
-
-class QBase : public QObject
+#include <QGraphicsView>
+class QBase : public QGraphicsView
 {
     Q_OBJECT
 public:
-    explicit QBase(QObject *parent = nullptr);
+    QBase();
+    QGraphicsScene* getScene(void);
+    virtual void insert(int n)=0;
+    void scaleView(qreal scaleFactor);
 
+    void zoomIn(void);
+    void zoomOut(void);
+    void update(void);
 signals:
 
 };

@@ -2,15 +2,16 @@
 #define LINKEDLIST_H
 
 #include <QObject>
-#include "node.h"
-class LinkedList : public QObject
+#include "qbase.h"
+class Node;
+
+class LinkedList : public QBase
 {
-    Q_OBJECT
     Node* head=nullptr;
 public:
-    LinkedList(Node* head=nullptr,QObject *parent = nullptr);
+    LinkedList(Node* head=nullptr);
 
-    void append(int n);
+    void insert(int n);
     void print();
     int getLength() const;
     void operator=(const LinkedList l){

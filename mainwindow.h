@@ -9,6 +9,7 @@
 #include <QLineEdit>
 #include <QMdiArea>
 #include <QActionGroup>
+#include "qbase.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -16,27 +17,22 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+
+    QSignalMapper *windowMapper;
+
     QToolBox *toolBox;
 
     QToolBar* editToolBar;
 
     QStatusBar* statusBar;
 
-    QMenuBar* menu_bar;
     QPushButton* btnInsert;
     QPushButton* btnDelete;
     QPushButton* btnSearch;
     QMdiArea* mdiArea;
     QLineEdit* lneInserir;
 
-    QMenu* arquivoMenu;
-    QMenu* editarMenu;
-    QMenu* alinharMenu;
-    QMenu* novoMenu;
-    QMenu* windowsMenu;
-    QMenu* configuracoesMenu;
-    QMenu* ajudaMenu;
-    QMenu* alinhamentoMenu;
+
 
     QAction* newAct;
 
@@ -48,11 +44,12 @@ public:
     void createStatusBar();
     void createToolBar();
     void createAction();
+    void setActiveSubWindow(QWidget *window);
     private slots:
-     void abrirArquivo(void);
+    void insertData(int x=0);
+     QBase* createLinkedList();
      void on_actionLinkedList_triggered();
-protected:
-     QBase* createLinkedList(void);
+
 private:
     Ui::MainWindow *ui;
 };

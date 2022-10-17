@@ -1,21 +1,25 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include <QObject>
+#include <QGraphicsItem>
 
-class Node : public QObject
+class Node : public QGraphicsItem
 {
 
-    Q_OBJECT;
     int data;
-
+    int x=0;
+    int y=0;
 public:
-     Node* next;
-    explicit Node(QObject *parent);
-    explicit Node(int dat=-1,Node* next=nullptr);
+    Node* next;
+    Node(int dat=-1,Node* next=nullptr,int x=0,int y=0);
     int getData();
-
-signals:
+    void SetX(int x);
+    void SetY(int y);
+    int getX();
+    int getY();
+protected:
+  QRectF boundingRect() const;
+  void paint(QPainter *painter, const QStyleOptionGraphicsItem *option=nullptr, QWidget *widget=nullptr);
 
 };
 

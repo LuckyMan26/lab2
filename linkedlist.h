@@ -14,6 +14,8 @@ public:
     void insert(int n);
     void print();
     int getLength() const;
+    int search(int x);
+    void remove(int x);
     void operator=(const LinkedList l){
         this->head=l.head;
     }

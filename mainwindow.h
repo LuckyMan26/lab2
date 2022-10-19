@@ -31,7 +31,8 @@ class MainWindow : public QMainWindow
     QPushButton* btnSearch;
     QMdiArea* mdiArea;
     QLineEdit* lneInserir;
-
+    QPushButton* btnNxt;
+    QPushButton* btnPrev;
 
 
     QAction* newAct;
@@ -47,6 +48,8 @@ public:
     void setActiveSubWindow(QWidget *window);
     private slots:
     void insertData(int x=0);
+    void searchData(int x=0);
+    void deleteData(int x=0);
      QBase* createLinkedList();
      void on_actionLinkedList_triggered();
 

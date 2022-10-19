@@ -10,6 +10,8 @@ public:
     QBase();
     QGraphicsScene* getScene(void);
     virtual void insert(int n)=0;
+    virtual int search(int n)=0;
+    virtual void remove(int n)=0;
     void scaleView(qreal scaleFactor);
 
     void zoomIn(void);

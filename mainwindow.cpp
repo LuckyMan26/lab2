@@ -63,24 +63,25 @@ void MainWindow::createToolBar()
 {
     editToolBar = addToolBar(tr("Principal"));
 
-    /*Botões da Janela*/
     btnInsert = new QPushButton;
     btnDelete = new QPushButton;
     btnSearch = new QPushButton;
-    /*Adiciona texto ao botões criado*/
+    btnNxt=new QPushButton;
+    btnPrev=new QPushButton;
     btnInsert->setText("Insert");
     btnDelete->setText("Delete");
     btnSearch->setText("Search");
-    /*Adiciona os ícones nos botões*/
-
+    btnNxt->setText("Next step");
+    btnPrev->setText("Previous step");
     btnInsert->setIcon(QIcon(":/images/inserir.png"));
     btnDelete->setIcon(QIcon(":/images/delete.png"));
     btnSearch->setIcon(QIcon(":/images/buscar.png"));
-    /*Adiciona os eventos aos botões*/
-   connect(btnInsert, SIGNAL(clicked()),this, SLOT(insertData()));
-   connect(btnDelete, SIGNAL(clicked()),this, SLOT(this->close()));
+    btnNxt->setIcon(QIcon(":/images/green-right-arrow-transparent.png"));
+    btnPrev->setIcon(QIcon(":/images/left_arrow.jpg"));
 
-    /*Entrada de Dados*/
+    connect(btnInsert, SIGNAL(clicked()),this, SLOT(insertData()));
+    connect(btnDelete, SIGNAL(clicked()),this, SLOT(deleteData()));
+    connect(btnSearch, SIGNAL(clicked()),this, SLOT(searchData()));
     lneInserir = new QLineEdit;
     lneInserir->setMinimumSize(100,0);
     lneInserir->setMaximumWidth(200);
@@ -90,11 +91,12 @@ void MainWindow::createToolBar()
 
 
 
-    /*Adiciona os botões ao ToolBar "EDIT"*/
     editToolBar->addWidget(lneInserir);
     editToolBar->addWidget(btnInsert);
     editToolBar->addWidget(btnDelete);
     editToolBar->addWidget(btnSearch);
+    editToolBar->addWidget(btnNxt);
+    editToolBar->addWidget(btnPrev);
 }
 
 MainWindow::~MainWindow()
@@ -103,8 +105,10 @@ MainWindow::~MainWindow()
 }
 void MainWindow::insertData(int x)
 {
+    int value=0;
 
-    int value=lneInserir->text().toInt();
+    value=lneInserir->text().toInt();
+    std::cout<<value<<std::endl;
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
     for(int i=0;i<windows.size();i++){
          QBase *child = qobject_cast<QBase *>(windows[i]->widget());
@@ -115,7 +119,34 @@ void MainWindow::insertData(int x)
         child->update();
     }
 }
+void MainWindow::searchData(int x)
+{
+    int value=0;
 
+    value=lneInserir->text().toInt();
+    std::cout<<value<<std::endl;
+    int res;
+    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+    for(int i=0;i<windows.size();i++){
+         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         res=child->search(value);
+    }
+
+}
+void MainWindow::deleteData(int x){
+    int value=0;
+    value=lneInserir->text().toInt();
+    std::cout<<value<<std::endl;
+    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+    for(int i=0;i<windows.size();i++){
+         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+        child->remove(value);
+    }
+    for(int i=0;i<windows.size();i++){
+        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+        child->update();
+    }
+}
 QBase* MainWindow::createLinkedList(){
 
     mdiArea = new QMdiArea;
@@ -132,7 +163,6 @@ QBase* MainWindow::createLinkedList(){
     mdiArea->addSubWindow(l);
 
     l->show();
-
     return l;
 }
 void MainWindow::on_actionLinkedList_triggered()

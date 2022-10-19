@@ -32,10 +32,20 @@ int Node::getX(){
 int Node::getY(){
     return y;
 }
+void Node::setCond(int x){
+    this->cond=x;
+}
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
 
-
-    painter->setBrush(QColor(Qt::green));
+    if(cond==Nothing){
+    painter->setBrush(QColor(Qt::white));
+    }
+    else if(cond==Checking){
+        painter->setBrush(QColor(Qt::red));
+    }
+    else if(cond==Suits){
+        painter->setBrush(QColor(Qt::green));
+    }
     painter->drawEllipse(0,10,40,40);
     QRect rect = QRect(0,10,40,40);
     painter->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::SquareCap, Qt::RoundJoin));

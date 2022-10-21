@@ -34,10 +34,28 @@
      <addaction name="actionLinkedList"/>
      <addaction name="actionBST"/>
      <addaction name="actionAVL"/>
+     <addaction name="actionVector"/>
     </widget>
     <addaction name="menuNew"/>
    </widget>
+   <widget class="QMenu" name="menuSorting">
+    <property name="title">
+     <string>Sorting</string>
+    </property>
+    <addaction name="actionBubbleSort"/>
+    <addaction name="actionInsertionSort"/>
+    <addaction name="actionQuickSort"/>
+    <addaction name="actionMergeSort"/>
+   </widget>
+   <widget class="QMenu" name="menuCreateRandom">
+    <property name="title">
+     <string>CreateRandom</string>
+    </property>
+    <addaction name="actionCreate_Random"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuSorting"/>
+   <addaction name="menuCreateRandom"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionLinkedList">
@@ -53,6 +71,41 @@
   <action name="actionAVL">
    <property name="text">
     <string>AVL</string>
+   </property>
+  </action>
+  <action name="actionBubbleSort">
+   <property name="text">
+    <string>BubbleSort</string>
+   </property>
+  </action>
+  <action name="actionInsertionSort">
+   <property name="text">
+    <string>InsertionSort</string>
+   </property>
+  </action>
+  <action name="actionQuickSort">
+   <property name="text">
+    <string>QuickSort</string>
+   </property>
+  </action>
+  <action name="actionMergeSort">
+   <property name="text">
+    <string>MergeSort</string>
+   </property>
+  </action>
+  <action name="actionVector">
+   <property name="text">
+    <string>Vector</string>
+   </property>
+  </action>
+  <action name="actionVector_2">
+   <property name="text">
+    <string>Vector</string>
+   </property>
+  </action>
+  <action name="actionCreate_Random">
+   <property name="text">
+    <string>Create Random</string>
    </property>
   </action>
  </widget>

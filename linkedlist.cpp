@@ -110,3 +110,23 @@ void LinkedList::remove(int x){
         temp=temp->next;
     }
 }
+void LinkedList::bubbleSort(){
+
+}
+void LinkedList::insertionSort(){
+
+}
+void LinkedList::quickSort(){
+
+}
+void LinkedList::mergeSort(){
+
+}
+void LinkedList::createRand(int size){
+    int temp;
+    srand(time(NULL));
+    for(int i=0;i<size;i++){
+        temp=rand()%(2*size);
+        insert(temp);
+    }
+}

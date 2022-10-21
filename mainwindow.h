@@ -29,7 +29,7 @@ class MainWindow : public QMainWindow
     QPushButton* btnInsert;
     QPushButton* btnDelete;
     QPushButton* btnSearch;
-    QMdiArea* mdiArea;
+    QMdiArea* mdiArea=nullptr;
     QLineEdit* lneInserir;
     QPushButton* btnNxt;
     QPushButton* btnPrev;
@@ -50,8 +50,23 @@ public:
     void insertData(int x=0);
     void searchData(int x=0);
     void deleteData(int x=0);
-     QBase* createLinkedList();
-     void on_actionLinkedList_triggered();
+
+    QBase* createLinkedList();
+    QBase* createVector();
+
+    void on_actionLinkedList_triggered();
+
+    void on_actionVector_triggered();
+
+    void on_actionBubbleSort_triggered();
+
+    void on_actionInsertionSort_triggered();
+
+    void on_actionQuickSort_triggered();
+
+    void on_actionCreate_Random_triggered();
+
+    void on_actionMergeSort_triggered();
 
 private:
     Ui::MainWindow *ui;

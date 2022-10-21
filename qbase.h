@@ -12,6 +12,11 @@ public:
     virtual void insert(int n)=0;
     virtual int search(int n)=0;
     virtual void remove(int n)=0;
+    virtual void bubbleSort()=0;
+    virtual void insertionSort()=0;
+    virtual void quickSort()=0;
+    virtual void mergeSort()=0;
+    virtual void createRand(int size)=0;
     void scaleView(qreal scaleFactor);
 
     void zoomIn(void);

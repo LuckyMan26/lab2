@@ -16,6 +16,11 @@ public:
     int getLength() const;
     int search(int x);
     void remove(int x);
+    void bubbleSort();
+    void insertionSort();
+    void quickSort();
+    void mergeSort();
+    void createRand(int size);
     void operator=(const LinkedList l){
         this->head=l.head;
     }

@@ -13,14 +13,18 @@ SOURCES += \
     mainwindow.cpp \
     mymodel.cpp \
     node.cpp \
-    qbase.cpp
+    qbase.cpp \
+    vector.cpp \
+    vectornode.cpp
 
 HEADERS += \
     linkedlist.h \
     mainwindow.h \
     mymodel.h \
     node.h \
-    qbase.h
+    qbase.h \
+    vector.h \
+    vectornode.h
 
 FORMS += \
     mainwindow.ui

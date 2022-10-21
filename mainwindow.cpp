@@ -10,12 +10,13 @@
 #include <QMdiSubWindow>
 #include "linkedlist.h"
 #include <iostream>
+#include "vector.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
 
-    /*Coloca o MdiArea como sendo principal na janela*/
+
 
     windowMapper = new QSignalMapper(this);
     connect(windowMapper, SIGNAL(mapped(QWidget*)),this, SLOT(setActiveSubWindow(QWidget*)));
@@ -24,10 +25,6 @@ MainWindow::MainWindow(QWidget *parent)
     createToolBox();
     createStatusBar();
     createToolBar();
-
-    setWindowIcon(QIcon(tr(":/images/logotipo_base2.png")));
-    setWindowTitle(tr("QWood"));
-
 
     ui->setupUi(this);
 }
@@ -82,6 +79,7 @@ void MainWindow::createToolBar()
     connect(btnInsert, SIGNAL(clicked()),this, SLOT(insertData()));
     connect(btnDelete, SIGNAL(clicked()),this, SLOT(deleteData()));
     connect(btnSearch, SIGNAL(clicked()),this, SLOT(searchData()));
+
     lneInserir = new QLineEdit;
     lneInserir->setMinimumSize(100,0);
     lneInserir->setMaximumWidth(200);
@@ -108,12 +106,13 @@ void MainWindow::insertData(int x)
     int value=0;
 
     value=lneInserir->text().toInt();
-    std::cout<<value<<std::endl;
+    std::cout<<"value"<<std::endl;
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
     for(int i=0;i<windows.size();i++){
          QBase *child = qobject_cast<QBase *>(windows[i]->widget());
          child->insert(value);
     }
+
     for(int i=0;i<windows.size();i++){
         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
         child->update();
@@ -153,8 +152,7 @@ QBase* MainWindow::createLinkedList(){
     mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setCentralWidget(mdiArea);
-    windowMapper = new QSignalMapper(this);
-    connect(windowMapper, SIGNAL(mapped(QWidget*)),this, SLOT(setActiveSubWindow(QWidget*)));
+
 
     LinkedList* l=new LinkedList();
 
@@ -165,8 +163,102 @@ QBase* MainWindow::createLinkedList(){
     l->show();
     return l;
 }
+QBase* MainWindow::createVector(){
+
+
+    mdiArea = new QMdiArea;
+    mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    setCentralWidget(mdiArea);
+
+    Vector* v=new Vector();
+    v->setWindowTitle("Sorting Algorithms");
+    v->setMinimumSize(300,300);
+    mdiArea->addSubWindow(v);
+    v->show();
+    return v;
+
+}
 void MainWindow::on_actionLinkedList_triggered()
 {
    createLinkedList();
+}
+
+
+void MainWindow::on_actionVector_triggered()
+{
+    createVector();
+}
+
+
+void MainWindow::on_actionBubbleSort_triggered()
+{
+    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+    for(int i=0;i<windows.size();i++){
+         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         child->bubbleSort();
+    }
+    for(int i=0;i<windows.size();i++){
+        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+        child->update();
+    }
+}
+
+
+void MainWindow::on_actionInsertionSort_triggered()
+{
+    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+    for(int i=0;i<windows.size();i++){
+         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         child->insertionSort();
+    }
+    for(int i=0;i<windows.size();i++){
+        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+        child->update();
+    }
+}
+
+
+void MainWindow::on_actionQuickSort_triggered()
+{
+    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+    for(int i=0;i<windows.size();i++){
+         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         child->quickSort();
+    }
+    for(int i=0;i<windows.size();i++){
+        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+        child->update();
+    }
+}
+
+
+void MainWindow::on_actionCreate_Random_triggered()
+{
+    int value=0;
+    value=lneInserir->text().toInt();
+    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+    for(int i=0;i<windows.size();i++){
+         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         child->createRand(value);
+    }
+    for(int i=0;i<windows.size();i++){
+        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+        child->update();
+    }
+}
+
+
+void MainWindow::on_actionMergeSort_triggered()
+{
+    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+    for(int i=0;i<windows.size();i++){
+         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         child->mergeSort();
+    }
+    for(int i=0;i<windows.size();i++){
+        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+        child->update();
+    }
 }
 

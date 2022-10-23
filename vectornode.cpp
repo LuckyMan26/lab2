@@ -2,14 +2,16 @@
 #include "qwidget.h"
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
-vectorNode::vectorNode(int data)
-{
-this->data=data;
+vectorNode::vectorNode(int data){
+    this->data=data;
 }
-int vectorNode::getX(){
+vectorNode::vectorNode(const vectorNode& node){
+    this->data=node.getData();
+}
+int vectorNode::getX() const{
    return x;
 }
-int vectorNode::getY(){
+ int vectorNode::getY() const{
     return y;
 }
 void vectorNode::SetX(int x){
@@ -20,7 +22,7 @@ void vectorNode::SetY(int y){
     this->y=y;
     setY(y);
 }
-int vectorNode::getData(){
+ int vectorNode::getData() const{
     return data;
 }
 void vectorNode::setData(int x){

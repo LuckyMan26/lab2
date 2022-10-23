@@ -21,6 +21,10 @@ public:
     void quickSort();
     void mergeSort();
     void createRand(int size);
+    std::vector<std::vector<int>> getSteps();
+    void setFirstStep();
+    void setNextStep();
+    void setPrevStep();
     void operator=(const LinkedList l){
         this->head=l.head;
     }

@@ -16,11 +16,12 @@ class vectorNode: public QGraphicsItem
     int cond=Nothing;
 public:
     vectorNode(int data=-1);
+    vectorNode(const vectorNode& node);
     void SetX(int x=0);
     void SetY(int y=0);
-    int getX();
-    int getY();
-    int  getData();
+    int getX() const;
+    int getY() const;
+    int  getData() const;
     void setData(int x);
     void setCond(int x);
     bool operator > (vectorNode& v) {
@@ -41,6 +42,7 @@ public:
         }
         return false;
     }
+
     friend void swap(vectorNode& lhs, vectorNode& rhs){
         int data1=lhs.getData();
         int data2=rhs.getData();

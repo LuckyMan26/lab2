@@ -130,3 +130,13 @@ void LinkedList::createRand(int size){
         insert(temp);
     }
 }
+std::vector<std::vector<int>> LinkedList::getSteps(){
+}
+void LinkedList::setFirstStep(){
+}
+void LinkedList::setNextStep(){
+
+}
+void LinkedList::setPrevStep(){
+
+}

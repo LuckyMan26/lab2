@@ -42,7 +42,14 @@
     <property name="title">
      <string>Sorting</string>
     </property>
-    <addaction name="actionBubbleSort"/>
+    <widget class="QMenu" name="menuBubbleSort">
+     <property name="title">
+      <string>BubbleSort</string>
+     </property>
+     <addaction name="actionBubbleSort_2"/>
+     <addaction name="actionSteps_2"/>
+    </widget>
+    <addaction name="menuBubbleSort"/>
     <addaction name="actionInsertionSort"/>
     <addaction name="actionQuickSort"/>
     <addaction name="actionMergeSort"/>
@@ -73,11 +80,6 @@
     <string>AVL</string>
    </property>
   </action>
-  <action name="actionBubbleSort">
-   <property name="text">
-    <string>BubbleSort</string>
-   </property>
-  </action>
   <action name="actionInsertionSort">
    <property name="text">
     <string>InsertionSort</string>
@@ -106,6 +108,16 @@
   <action name="actionCreate_Random">
    <property name="text">
     <string>Create Random</string>
+   </property>
+  </action>
+  <action name="actionBubbleSort_2">
+   <property name="text">
+    <string>BubbleSort</string>
+   </property>
+  </action>
+  <action name="actionSteps_2">
+   <property name="text">
+    <string>Steps</string>
    </property>
   </action>
  </widget>

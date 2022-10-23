@@ -29,6 +29,7 @@ class MainWindow : public QMainWindow
     QPushButton* btnInsert;
     QPushButton* btnDelete;
     QPushButton* btnSearch;
+    QPushButton* btnStop;
     QMdiArea* mdiArea=nullptr;
     QLineEdit* lneInserir;
     QPushButton* btnNxt;
@@ -45,12 +46,15 @@ public:
     void createStatusBar();
     void createToolBar();
     void createAction();
+    void updateMenus();
     void setActiveSubWindow(QWidget *window);
     private slots:
     void insertData(int x=0);
     void searchData(int x=0);
     void deleteData(int x=0);
-
+    void nxtStep();
+    void prevStep();
+    bool activeMdiChild();
     QBase* createLinkedList();
     QBase* createVector();
 
@@ -67,6 +71,10 @@ public:
     void on_actionCreate_Random_triggered();
 
     void on_actionMergeSort_triggered();
+
+    void on_actionBubbleSort_2_triggered();
+
+    void on_actionSteps_2_triggered();
 
 private:
     Ui::MainWindow *ui;

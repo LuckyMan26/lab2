@@ -10,7 +10,7 @@ class vectorNode;
 class Vector: public QBase
 {
     std::vector<vectorNode*> v;
-    void qSort(std::vector<vectorNode*> vec,int low,int high);
+    void qSort(std::vector<vectorNode*>& vec,int low,int high);
     void merge(std::vector<vectorNode*> vec,vectorNode* tmp,int low, int mid, int high);
     vector<vector<int>> vec;
     int curStep=0;
@@ -40,8 +40,8 @@ private:
     void bubbleSort(std::vector<int> v1);
     void insertionSort(std::vector<int> v1);
     void quickSort(std::vector<int> v1);
-    void qSort(std::vector<int> v1,int low,int high);
-    void merge(std::vector<int> vec,int* tmp,int low, int mid, int high);
+    void qSort(std::vector<int>& v1,int low,int high);
+    void merge(std::vector<int>& vec,int* tmp,int low, int mid, int high);
 };
 
 #endif // VECTOR_H

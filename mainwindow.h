@@ -64,17 +64,23 @@ public:
 
     void on_actionBubbleSort_triggered();
 
-    void on_actionInsertionSort_triggered();
-
-    void on_actionQuickSort_triggered();
-
     void on_actionCreate_Random_triggered();
-
-    void on_actionMergeSort_triggered();
 
     void on_actionBubbleSort_2_triggered();
 
     void on_actionSteps_2_triggered();
+
+    void on_actionInsertionSort_2_triggered();
+
+    void on_actionQuickSort_2_triggered();
+
+    void on_actionMergeSort_2_triggered();
+
+    void on_actionStep_triggered();
+
+    void on_actionSteps_triggered();
+
+    void on_actionSteps_3_triggered();
 
 private:
     Ui::MainWindow *ui;

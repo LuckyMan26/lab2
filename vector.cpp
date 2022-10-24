@@ -1,6 +1,6 @@
 #include "vector.h"
 #include "qapplication.h"
-#include "step.h""
+#include "step.h"
 #include "vectornode.h"
 #include <iostream>
 #include <QThread>
@@ -128,22 +128,19 @@ void Vector::insertionSort(){
             this->repaint();
             while (j >= 0 && v[j]->getData() > key)
             {
-                v[j]->setCond(2);
+                 v[j]->setCond(0);
                 v[j+1]->setData(v[j]->getData());
-                this->repaint();
-                v[j]->setCond(0);
+
                 j = j - 1;
             }
-
             v[j + 1]->setData(key);
-            this->repaint();
+
         }
     }
     else{
         std::vector<int> v1;
-        int size=v1.size();
+        int size=v.size();
         for(int i=0;i<size;i++){
-
             v1.push_back(v[i]->getData());
         }
         insertionSort(v1);
@@ -151,10 +148,10 @@ void Vector::insertionSort(){
 }
 void Vector::insertionSort(vector<int> v1){
     int key;
-    int size=v.size();
+    int size=v1.size();
     int j;
+    vec.push_back(v1);
     for (int i = 1; i < size; i++){
-
 
         key=v1[i];
         j = i - 1;
@@ -165,27 +162,31 @@ void Vector::insertionSort(vector<int> v1){
         }
 
         v1[j + 1]=(key);
+        vec.push_back(v1);
     }
+
+
 }
-void Vector::qSort(std::vector<vectorNode*> vec,int low,int high){
+void Vector::qSort(std::vector<vectorNode*>& vec,int low,int high){
         int i=low;
         int j=high;
         int pivot =v[(i + j)/2]->getData();
+        v[(i+j)/2]->setCond(1);
+        this->repaint();
         while (i <= j)
         {
             QThread::msleep(1000);
             while (v[i]->getData()<pivot){
-                v[i]->setCond(1);
+                v[i]->setCond(2);
                 this->repaint();
-
                 i++;
             }
             while (v[j]->getData()>pivot){
-                v[j]->setCond(1);
-                this->repaint();
+                v[j]->setCond(2);
 
                 j--;
             }
+
             v[i]->setCond(0);
             v[j]->setCond(0);
             if (i <= j)
@@ -201,6 +202,7 @@ void Vector::qSort(std::vector<vectorNode*> vec,int low,int high){
                 j--;
             }
         }
+        v[(i+j)/2]->setCond(0);
         if (j > low)
             qSort(v, low, j);
         if (i < high)
@@ -215,20 +217,24 @@ void Vector::quickSort(){
     }
     else{
         std::vector<int> v1;
-        int size=v1.size();
+        int size=v.size();
         for(int i=0;i<size;i++){
-
             v1.push_back(v[i]->getData());
         }
+
         quickSort(v1);
     }
 }
 
 void Vector::quickSort(vector<int> v1){
      int size=v1.size();
+     vec.push_back(v1);
+      std::cout<<"Hello\n";
      qSort(v1,0,size-1);
+     vec.push_back(v1);
+     std::cout<<"Hello\n";
 }
-void Vector::qSort(vector<int> v1,int low,int high){
+void Vector::qSort(vector<int>& v1,int low,int high){
     int i=low;
     int j=high;
     int pivot =v1[(i + j)/2];
@@ -250,12 +256,17 @@ void Vector::qSort(vector<int> v1,int low,int high){
             i++;
             j--;
         }
+    vec.push_back(v1);
     }
-    if (j > low)
-        qSort(v1, low, j);
-    if (i < high)
-        qSort(v1, i, high);
 
+    if (j > low){
+
+        qSort(v1, low, j);
+    }
+    if (i < high){
+
+        qSort(v1, i, high);
+}
 }
 void Vector::merge(std::vector<vectorNode*> vec,vectorNode* tmp,int bot, int mid, int top){
     int i=bot;
@@ -327,26 +338,29 @@ void Vector::mergeSort(){
             tmp[i]=(v[i]->getData());
             v1.push_back(v[i]->getData());
         }
+
+        vec.push_back(v1);
         for(int width=1;width<length;width=2*width){
             for(int i=0;i<length;i+=2*width){
-                QThread::msleep(1000);
+
                 int bot=i;
                 int mid=i+width-1;
                 int top=std::min(length-1,i+2*width-1);
-
-
                 merge(v1,tmp,bot,mid,top);
+                vec.push_back(v1);
 
             }
     }
-
+delete[] tmp;
 }
 }
-void Vector::merge(vector<int> v1,int* tmp,int bot,int mid,int top){
+void Vector::merge(vector<int>& v1,int* tmp,int bot,int mid,int top){
     int i=bot;
     int j=mid+1;
     int cur=bot;
+
     while(i<=mid&&j<=top){
+
         if(v1[i]<=v1[j]){
             tmp[cur]=(v1[i]);
             cur++;

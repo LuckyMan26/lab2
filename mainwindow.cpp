@@ -266,7 +266,7 @@ void MainWindow::on_actionBubbleSort_triggered()
 }
 
 
-void MainWindow::on_actionInsertionSort_triggered()
+void MainWindow::on_actionInsertionSort_2_triggered()
 {
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
     for(int i=0;i<windows.size();i++){
@@ -280,7 +280,7 @@ void MainWindow::on_actionInsertionSort_triggered()
 }
 
 
-void MainWindow::on_actionQuickSort_triggered()
+void MainWindow::on_actionQuickSort_2_triggered()
 {
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
     for(int i=0;i<windows.size();i++){
@@ -310,7 +310,7 @@ void MainWindow::on_actionCreate_Random_triggered()
 }
 
 
-void MainWindow::on_actionMergeSort_triggered()
+void MainWindow::on_actionMergeSort_2_triggered()
 {
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
     for(int i=0;i<windows.size();i++){
@@ -357,5 +357,63 @@ void MainWindow::on_actionSteps_2_triggered()
         child->setFirstStep();
     }
 
+}
+
+
+void MainWindow::on_actionStep_triggered()
+{
+    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+    QThread thread;
+    srand(time(NULL));
+
+    for(int i=0;i<windows.size();i++){
+         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         child->makeStepRegime();
+         child->insertionSort();
+
+    }
+    std::cout<<"Hello";
+    for(int i=0;i<windows.size();i++){
+        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+        child->setFirstStep();
+    }
+}
+
+
+void MainWindow::on_actionSteps_triggered()
+{
+    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+    QThread thread;
+    srand(time(NULL));
+
+    for(int i=0;i<windows.size();i++){
+         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         child->makeStepRegime();
+         child->quickSort();
+
+    }
+    for(int i=0;i<windows.size();i++){
+        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+        child->setFirstStep();
+    }
+}
+
+
+void MainWindow::on_actionSteps_3_triggered()
+{
+    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+    QThread thread;
+    srand(time(NULL));
+
+    for(int i=0;i<windows.size();i++){
+         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         child->makeStepRegime();
+         child->mergeSort();
+
+    }
+    for(int i=0;i<windows.size();i++){
+        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+        child->setFirstStep();
+    }
 }
 

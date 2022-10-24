@@ -49,10 +49,31 @@
      <addaction name="actionBubbleSort_2"/>
      <addaction name="actionSteps_2"/>
     </widget>
+    <widget class="QMenu" name="menuInsertionSort">
+     <property name="title">
+      <string>InsertionSort</string>
+     </property>
+     <addaction name="actionInsertionSort_2"/>
+     <addaction name="actionStep"/>
+    </widget>
+    <widget class="QMenu" name="menuQuickSort">
+     <property name="title">
+      <string>QuickSort</string>
+     </property>
+     <addaction name="actionQuickSort_2"/>
+     <addaction name="actionSteps"/>
+    </widget>
+    <widget class="QMenu" name="menuMergeSort">
+     <property name="title">
+      <string>MergeSort</string>
+     </property>
+     <addaction name="actionMergeSort_2"/>
+     <addaction name="actionSteps_3"/>
+    </widget>
     <addaction name="menuBubbleSort"/>
-    <addaction name="actionInsertionSort"/>
-    <addaction name="actionQuickSort"/>
-    <addaction name="actionMergeSort"/>
+    <addaction name="menuInsertionSort"/>
+    <addaction name="menuQuickSort"/>
+    <addaction name="menuMergeSort"/>
    </widget>
    <widget class="QMenu" name="menuCreateRandom">
     <property name="title">
@@ -80,21 +101,6 @@
     <string>AVL</string>
    </property>
   </action>
-  <action name="actionInsertionSort">
-   <property name="text">
-    <string>InsertionSort</string>
-   </property>
-  </action>
-  <action name="actionQuickSort">
-   <property name="text">
-    <string>QuickSort</string>
-   </property>
-  </action>
-  <action name="actionMergeSort">
-   <property name="text">
-    <string>MergeSort</string>
-   </property>
-  </action>
   <action name="actionVector">
    <property name="text">
     <string>Vector</string>
@@ -116,6 +122,36 @@
    </property>
   </action>
   <action name="actionSteps_2">
+   <property name="text">
+    <string>Steps</string>
+   </property>
+  </action>
+  <action name="actionInsertionSort_2">
+   <property name="text">
+    <string>InsertionSort</string>
+   </property>
+  </action>
+  <action name="actionStep">
+   <property name="text">
+    <string>Step</string>
+   </property>
+  </action>
+  <action name="actionQuickSort_2">
+   <property name="text">
+    <string>QuickSort</string>
+   </property>
+  </action>
+  <action name="actionSteps">
+   <property name="text">
+    <string>Steps</string>
+   </property>
+  </action>
+  <action name="actionMergeSort_2">
+   <property name="text">
+    <string>MergeSort</string>
+   </property>
+  </action>
+  <action name="actionSteps_3">
    <property name="text">
     <string>Steps</string>
    </property>

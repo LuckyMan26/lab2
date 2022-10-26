@@ -4,6 +4,7 @@
 #include <cmath>
 #include "qapplication.h"
 #include "qbase.h"
+#include <iostream>
 QBase::QBase()
 
 {
@@ -59,4 +60,9 @@ void QBase::update(){
     scene()->setSceneRect(scene()->itemsBoundingRect());
 
 }
-
+bool QBase::isStop(void){
+    return stop;
+}
+void QBase::Stop(void){
+    stop=true;
+}

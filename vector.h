@@ -20,11 +20,12 @@ public:
     int search(int x);
     void remove(int x);
 private slots:
+
     void bubbleSort();
     void insertionSort();
     void quickSort();
     void mergeSort();
-
+    void processEvents(void);
     void createRand(int size);
 
     void scaleView(qreal scaleFactor);
@@ -36,12 +37,17 @@ private slots:
     void setFirstStep();
     void setNextStep();
     void setPrevStep();
+    void setSteps();
+
 private:
+    void wait(int interval);
+    std::vector<int> getIntVector(void);
     void bubbleSort(std::vector<int> v1);
     void insertionSort(std::vector<int> v1);
     void quickSort(std::vector<int> v1);
     void qSort(std::vector<int>& v1,int low,int high);
     void merge(std::vector<int>& vec,int* tmp,int low, int mid, int high);
+    int getCurStep(void);
 };
 
 #endif // VECTOR_H

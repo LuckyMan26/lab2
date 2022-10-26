@@ -103,6 +103,7 @@ void LinkedList::remove(int x){
                 }
             }
             delete temp;
+            return;
             }
         }
         index++;

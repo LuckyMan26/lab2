@@ -1,5 +1,6 @@
 #include "vector.h"
 #include "qapplication.h"
+#include "qdatetime.h"
 #include "step.h"
 #include "vectornode.h"
 #include <iostream>
@@ -8,6 +9,10 @@
 Vector::Vector()
 {
     this->v={};
+    QTimer* timer=new QTimer(this);
+
+    connect(timer,SIGNAL(timeout()),this,SLOT(processEvents()));
+    timer->start(50);
 }
 void Vector::insert(int x){
    vectorNode* tmp=new vectorNode(x);
@@ -60,13 +65,34 @@ int Vector::search(int x){
     }
     return -1;
 }
+void Vector::processEvents(void){
+
+    QApplication::processEvents();
+}
+void Vector::wait(int interval){
+    QElapsedTimer* timer = new QElapsedTimer();
+    timer->start();
+
+    while(timer->elapsed() < interval) {
+        QApplication::processEvents();
+    }
+    delete timer;
+}
 void Vector::bubbleSort(){
+
 int size=v.size();
+std::vector<int> v1=getIntVector();
+ bubbleSort(v1);
 if(!getStepRegime()){
+
 for( int i=0;i<size;i++){
     for( int j=0;j<size-i-1;j++){
+        if(isStop()){
 
-        QThread::msleep(1000);
+            return;
+        }
+        curStep++;
+        wait(300);
         v[j]->setCond(1);
         v[j+1]->setCond(1);
 
@@ -87,6 +113,7 @@ for( int i=0;i<size;i++){
         v[j+1]->setCond(0);
 
     }
+
 }
 }
 else{
@@ -114,12 +141,19 @@ void Vector::bubbleSort(std::vector<int> v1){
     }
 }
 void Vector::insertionSort(){
+std::vector<int> v1=getIntVector();
+insertionSort(v1);
     if(!getStepRegime()){
+
         int key;
         int size=v.size();
         int j;
         for (int i = 1; i < size; i++){
-            QThread::msleep(1000);
+            if(isStop()){
+                return;
+            }
+             curStep++;
+             wait(300);
             v[i]->setCond(1);
 
             key=v[i]->getData();
@@ -128,6 +162,8 @@ void Vector::insertionSort(){
             this->repaint();
             while (j >= 0 && v[j]->getData() > key)
             {
+
+
                  v[j]->setCond(0);
                 v[j+1]->setData(v[j]->getData());
 
@@ -171,11 +207,16 @@ void Vector::qSort(std::vector<vectorNode*>& vec,int low,int high){
         int i=low;
         int j=high;
         int pivot =v[(i + j)/2]->getData();
+        std::cout<<"Pivot: "<<pivot<<std::endl;
         v[(i+j)/2]->setCond(1);
         this->repaint();
         while (i <= j)
         {
-            QThread::msleep(1000);
+            if(isStop()){
+                return;
+            }
+            curStep++;
+            wait(300);
             while (v[i]->getData()<pivot){
                 v[i]->setCond(2);
                 this->repaint();
@@ -194,6 +235,7 @@ void Vector::qSort(std::vector<vectorNode*>& vec,int low,int high){
                 v[i]->setCond(2);
                 v[j]->setCond(2);
                 this->repaint();
+
                 swap(*v[i],*v[j]);
                 this->repaint();
                 v[i]->setCond(0);
@@ -202,16 +244,32 @@ void Vector::qSort(std::vector<vectorNode*>& vec,int low,int high){
                 j--;
             }
         }
+        std::cout<<"Value: "<<(i+j)/2<<std::endl;
         v[(i+j)/2]->setCond(0);
-        if (j > low)
+        if (j > low){
+
             qSort(v, low, j);
+        }
         if (i < high)
             qSort(v, i, high);
+        if(i<v.size()&&i>-1){
         v[i]->setCond(0);
+        }
+        if((j<v.size())&&(j>-1)){
         v[j]->setCond(0);
+        }
 }
 void Vector::quickSort(){
+std::vector<int> v1=getIntVector();
+quickSort(v1);
     if(!getStepRegime()){
+          std::vector<int> v1;
+        for(int i=0;i<v.size();i++){
+            v1.push_back(v[i]->getData());
+        }
+        for(int i=0;i<v.size();i++){
+           std::cout<<v1[i]<<std::endl;
+        }
     int size=v.size();
     qSort(v,0,size-1);
     }
@@ -296,6 +354,26 @@ void Vector::merge(std::vector<vectorNode*> vec,vectorNode* tmp,int bot, int mid
 }
 
 void Vector::mergeSort(){
+std::vector<int> v1=getIntVector();
+vec.push_back(v1);
+int length=v.size();
+int* tmp=new int[length];
+for(int i=0;i<length;i++){
+    tmp[i]=(v[i]->getData());
+    v1.push_back(v[i]->getData());
+}
+for(int width=1;width<length;width=2*width){
+    for(int i=0;i<length;i+=2*width){
+
+        int bot=i;
+        int mid=i+width-1;
+        int top=std::min(length-1,i+2*width-1);
+        merge(v1,tmp,bot,mid,top);
+        vec.push_back(v1);
+
+    }
+}
+delete[] tmp;
     if(!getStepRegime()){
     int length=v.size();
     std::vector<int> v1;
@@ -307,7 +385,11 @@ void Vector::mergeSort(){
     }
     for(int width=1;width<length;width=2*width){
         for(int i=0;i<length;i+=2*width){
-            QThread::msleep(1000);
+            if(isStop()){
+                return;
+            }
+            curStep++;
+            wait(300);
             int bot=i;
             int mid=i+width-1;
             int top=std::min(length-1,i+2*width-1);
@@ -432,4 +514,15 @@ void Vector::setPrevStep(){
     }
     scene()->update();
     this->repaint();
+}
+std::vector<int> Vector::getIntVector(void){
+    std::vector<int> v1;
+    int size=v.size();
+    for(int i=0;i<size;i++){
+        v1.push_back(v[i]->getData());
+    }
+    return v1;
+}
+int Vector::getCurStep(void){
+    return curStep;
 }

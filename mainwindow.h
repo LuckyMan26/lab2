@@ -62,13 +62,14 @@ public:
     bool isVectorWindow(void);
     QBase* createLinkedList();
     QBase* createVector();
-
+    void stop(void);
+    void EnableMenus(void);
     void on_actionLinkedList_triggered();
 
     void on_actionVector_triggered();
 
     void on_actionBubbleSort_triggered();
-
+    void disableMenus();
     void on_actionCreate_Random_triggered();
 
     void on_actionBubbleSort_2_triggered();

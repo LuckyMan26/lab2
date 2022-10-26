@@ -92,11 +92,17 @@
    </property>
   </action>
   <action name="actionBST">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>BST </string>
    </property>
   </action>
   <action name="actionAVL">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>AVL</string>
    </property>

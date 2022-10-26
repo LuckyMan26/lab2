@@ -385,6 +385,10 @@ void Vector::merge(vector<int>& v1,int* tmp,int bot,int mid,int top){
 void Vector::createRand(int size){
     int temp;
     srand(time(NULL));
+    int len=v.size();
+    for(int i=0;i<len;i++){
+        delete v[i];
+    }
     for(int i=0;i<size;i++){
         temp=rand()%(2*size);
         insert(temp);

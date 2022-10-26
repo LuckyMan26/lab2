@@ -122,9 +122,24 @@ void LinkedList::quickSort(){
 void LinkedList::mergeSort(){
 
 }
+void LinkedList::clear(){
+    Node* current = head;
+    Node* next = NULL;
+        while (current != NULL)
+        {
+            next = current->next;
+            delete (current);
+            current = next;
+        }
+
+        /* deref head_ref to affect the real head back
+            in the caller. */
+        head = NULL;
+}
 void LinkedList::createRand(int size){
     int temp;
     srand(time(NULL));
+    clear();
     for(int i=0;i<size;i++){
         temp=rand()%(2*size);
         insert(temp);

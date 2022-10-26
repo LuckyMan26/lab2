@@ -35,7 +35,10 @@ class MainWindow : public QMainWindow
     QPushButton* btnNxt;
     QPushButton* btnPrev;
 
-
+    QMenu* mainMenu;
+    QMenu* fileMenu;
+    QMenu* sortingMenu;
+    QMenu* createRandMenu;
     QAction* newAct;
 
 public:
@@ -54,7 +57,9 @@ public:
     void deleteData(int x=0);
     void nxtStep();
     void prevStep();
-    bool activeMdiChild();
+    bool activeMdiChild(void);
+    bool isLinkedListWindow(void);
+    bool isVectorWindow(void);
     QBase* createLinkedList();
     QBase* createVector();
 

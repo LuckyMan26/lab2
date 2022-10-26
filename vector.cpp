@@ -92,7 +92,7 @@ for( int i=0;i<size;i++){
             return;
         }
         curStep++;
-        wait(300);
+        wait(getDelay());
         v[j]->setCond(1);
         v[j+1]->setCond(1);
 
@@ -153,7 +153,7 @@ insertionSort(v1);
                 return;
             }
              curStep++;
-             wait(300);
+             wait(getDelay());
             v[i]->setCond(1);
 
             key=v[i]->getData();
@@ -207,7 +207,6 @@ void Vector::qSort(std::vector<vectorNode*>& vec,int low,int high){
         int i=low;
         int j=high;
         int pivot =v[(i + j)/2]->getData();
-        std::cout<<"Pivot: "<<pivot<<std::endl;
         v[(i+j)/2]->setCond(1);
         this->repaint();
         while (i <= j)
@@ -216,7 +215,7 @@ void Vector::qSort(std::vector<vectorNode*>& vec,int low,int high){
                 return;
             }
             curStep++;
-            wait(300);
+            wait(getDelay());
             while (v[i]->getData()<pivot){
                 v[i]->setCond(2);
                 this->repaint();
@@ -244,7 +243,7 @@ void Vector::qSort(std::vector<vectorNode*>& vec,int low,int high){
                 j--;
             }
         }
-        std::cout<<"Value: "<<(i+j)/2<<std::endl;
+
         v[(i+j)/2]->setCond(0);
         if (j > low){
 
@@ -389,7 +388,7 @@ delete[] tmp;
                 return;
             }
             curStep++;
-            wait(300);
+            wait(getDelay());
             int bot=i;
             int mid=i+width-1;
             int top=std::min(length-1,i+2*width-1);

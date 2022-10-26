@@ -66,3 +66,9 @@ bool QBase::isStop(void){
 void QBase::Stop(void){
     stop=true;
 }
+void QBase::setDelay(int del){
+    this->delay=del;
+}
+int QBase::getDelay(){
+    return delay;
+}

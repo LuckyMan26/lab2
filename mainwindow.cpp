@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "delaywindow.h"
 #include "ui_mainwindow.h"
 #include <QAbstractTableModel>
 #include <QListView>
@@ -498,6 +499,24 @@ void MainWindow::on_actionSteps_3_triggered()
     for(int i=0;i<windows.size();i++){
         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
         child->setFirstStep();
+    }
+}
+
+
+void MainWindow::on_actionDelay_triggered()
+{
+    delayWindow dialog;
+    int value;
+    dialog.exec();
+    value=dialog.getDelay();
+    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+    for(int i=0;i<windows.size();i++){
+         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         child->setDelay(value);
+    }
+    for(int i=0;i<windows.size();i++){
+        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+        child->update();
     }
 }
 

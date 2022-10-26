@@ -9,6 +9,7 @@ class QBase : public QGraphicsView
     Q_OBJECT
     bool step=false;
     bool stop=false;
+    int delay=300;
 public:
     QBase();
     QGraphicsScene* getScene(void);
@@ -38,8 +39,8 @@ public:
     virtual void setNextStep()=0;
     virtual void setPrevStep()=0;
 
-
-
+    void setDelay(int del);
+    int getDelay();
 signals:
 
 };

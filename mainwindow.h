@@ -88,6 +88,8 @@ public:
 
     void on_actionSteps_3_triggered();
 
+    void on_actionDelay_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

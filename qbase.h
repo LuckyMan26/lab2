@@ -41,6 +41,7 @@ public:
 
     void setDelay(int del);
     int getDelay();
+    void wait(int interval);
 signals:
 
 };

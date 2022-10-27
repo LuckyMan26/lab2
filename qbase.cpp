@@ -4,6 +4,7 @@
 #include <cmath>
 #include "qapplication.h"
 #include "qbase.h"
+#include "qelapsedtimer.h"
 #include <iostream>
 QBase::QBase()
 
@@ -71,4 +72,13 @@ void QBase::setDelay(int del){
 }
 int QBase::getDelay(){
     return delay;
+}
+void QBase::wait(int interval){
+    QElapsedTimer* timer = new QElapsedTimer();
+    timer->start();
+
+    while(timer->elapsed() < interval) {
+        QApplication::processEvents();
+    }
+    delete timer;
 }

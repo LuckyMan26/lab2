@@ -470,6 +470,8 @@ void Vector::createRand(int size){
     for(int i=0;i<len;i++){
         delete v[i];
     }
+    std::cout<<len<<std::endl;
+    v.clear();
     for(int i=0;i<size;i++){
         temp=rand()%(2*size);
         insert(temp);

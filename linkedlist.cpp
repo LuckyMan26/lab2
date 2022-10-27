@@ -52,7 +52,7 @@ int LinkedList::search(int x){
     Node* temp=head;
     int index=0;
     while(temp){
-        QThread::msleep(getDelay());
+        wait(getDelay());
         temp->setCond(1);
         this->repaint();
         temp->setCond(0);
@@ -75,7 +75,7 @@ void LinkedList::remove(int x){
     int index=0;
 
     while(temp){
-        QThread::msleep(getDelay());
+        wait(getDelay());
         temp->setCond(1);
         this->repaint();
         temp->setCond(0);

@@ -17,6 +17,10 @@ qTNode::qTNode(int data,qTNode* l,qTNode* r){
     this->right=r;
 
 }
+qTNode::~qTNode(){
+    delete left;
+    delete right;
+}
 void qTNode::setCond(int x){
     this->cond=x;
 }
@@ -32,13 +36,14 @@ void qTNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
         painter->setBrush(QColor(Qt::green));
     }
 
-
-        if(left){
-
+        if(left!=nullptr){
+        std::cout<<"Poka 1"<<std::endl;
         QLineF line(QPointF(0,0+30),QPointF(0-30,0+50));
         painter->drawLine(line);
         }
-        if(right){
+        if(right!=nullptr){
+            std::cout<<"Poka 2"<<std::endl;
+
             QLineF line(QPointF(0+40,0+30),QPointF(0+70,0+50));
             painter->drawLine(line);
         }

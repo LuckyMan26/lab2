@@ -97,7 +97,70 @@ void qBst::search(int x,qTNode* cur){
 
 }
 void qBst::remove(int x){
+root=remove(x,root);
+this->repaint();
+}
+void qBst::removeSubTree(qTNode* cur){
+    if(cur){
 
+        if(cur->right){
+            removeSubTree(cur->right);
+        }
+        if(cur->left){
+            removeSubTree(cur->left);
+        }
+        delete cur;
+        return;
+    }
+}
+qTNode* qBst::minValueNode(qTNode* node){
+     qTNode* current = node;
+
+       while (current && current->left != NULL)
+           current = current->left;
+
+       return current;
+}
+qTNode* qBst::remove(int x,qTNode* cur){
+    if (cur == NULL){
+        return cur;
+    }
+
+        if (x < cur->getData())
+           cur->left=remove(x,cur->left);
+
+        else if (x > cur->getData())
+            cur->right=remove(x,cur->right);
+
+
+        else {
+            if (cur->left == NULL and cur->right == NULL){
+                this->repaint();
+
+                return nullptr;
+            }
+
+            else if (cur->left == NULL) {
+                qTNode* temp = cur->right;
+                delete cur;
+                this->repaint();
+                return temp;
+            }
+            else if (cur->right == NULL) {
+                qTNode* temp = cur->left;
+                delete cur;
+                this->repaint();
+                return temp;
+            }
+
+
+             qTNode* temp = minValueNode(cur->right);
+
+            cur->setData(temp->getData());
+
+            cur->right = remove( temp->getData(),cur->right);
+        }
+        return cur;
 }
 void qBst::bubbleSort(){
 

@@ -17,6 +17,7 @@ public:
     qTNode* left=nullptr;
     qTNode* right=nullptr;
     qTNode();
+    ~qTNode();
     qTNode(int data=-1,qTNode* l=nullptr,qTNode* r=nullptr);
     int getData();
     void setData(int x);

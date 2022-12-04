@@ -50,14 +50,51 @@ void qBst::insert(int x){
 if(!root){
     qTNode* node=new qTNode(x);
     root=node;
-    getScene()->addItem(root);
+    scene()->addItem(root);
 }
 else{
     insert(x,root);
 }
 }
 int qBst::search(int x){
+search(x,root);
 return -1;
+}
+void qBst::search(int x,qTNode* cur){
+         std::cout<<"Found"<<std::endl;
+        wait(getDelay());
+        cur->setCond(1);
+        this->repaint();
+        if(cur->getData()==x){
+            std::cout<<"Found"<<std::endl;
+            cur->setCond(2);
+            this->repaint();
+            return;
+        }
+        if(cur->getData()<x){
+            if(cur->right){
+            cur->setCond(0);
+
+            search(x,cur->right);
+            }
+            if(!cur->right){
+            cur->setCond(0);
+            return;
+            }
+
+        }
+        if(cur->getData()>x){
+            if(cur->left){
+            cur->setCond(0);
+            search(x,cur->left);
+            }
+            if(!cur->left){
+            cur->setCond(0);
+            return;
+            }
+
+        }
+
 }
 void qBst::remove(int x){
 

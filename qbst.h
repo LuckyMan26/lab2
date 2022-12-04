@@ -9,6 +9,7 @@ class qBst: public QBase
 {
     qTNode* root;
     void insert(int data,qTNode* cur);
+    void search(int x,qTNode* cur);
 public:
     qBst();
     qBst(qTNode* r=nullptr);

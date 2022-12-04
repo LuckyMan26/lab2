@@ -22,7 +22,6 @@ void qTNode::setCond(int x){
 }
 void qTNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
 
-
     if(cond==Nothing){
     painter->setBrush(QColor(Qt::white));
     }
@@ -32,8 +31,6 @@ void qTNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     else if(cond==Suits){
         painter->setBrush(QColor(Qt::green));
     }
-
-
 
 
         if(left){

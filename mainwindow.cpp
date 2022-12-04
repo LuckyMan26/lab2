@@ -217,9 +217,10 @@ void MainWindow::insertData(int x)
 void MainWindow::searchData(int x)
 {
     int value=0;
-    disableMenus();
+
     value=lneInserir->text().toInt();
-    std::cout<<value<<std::endl;
+    disableMenus();
+    std::cout<<"value "<<value<<std::endl;
     int res;
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
     for(int i=0;i<windows.size();i++){

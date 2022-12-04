@@ -62,6 +62,7 @@ public:
     bool isVectorWindow(void);
     QBase* createLinkedList();
     QBase* createVector();
+    QBase* createBST();
     void stop(void);
     void EnableMenus(void);
     void on_actionLinkedList_triggered();
@@ -89,6 +90,8 @@ public:
     void on_actionSteps_3_triggered();
 
     void on_actionDelay_triggered();
+
+    void on_actionBST_triggered();
 
 private:
     Ui::MainWindow *ui;

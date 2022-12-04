@@ -14,6 +14,7 @@
 #include <iostream>
 #include "vector.h"
 #include "dialog.h"
+#include "qbst.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -188,10 +189,22 @@ void MainWindow::insertData(int x)
     int value=0;
 
     value=lneInserir->text().toInt();
-    std::cout<<"value"<<std::endl;
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+
     for(int i=0;i<windows.size();i++){
+
          QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         if(mdiArea->objectName()=="Sorting Algorithms"){
+             if(value<0){
+         QMessageBox* msg=new QMessageBox(this);
+         msg->setText("Enter number > 0");
+         QPushButton* btn=new QPushButton(this);
+         btn->setText("Close");
+         connect(btn,SIGNAL(clicked()),msg,SLOT(close()));
+         msg->exec();
+             }
+         }
+         std::cout<<"Privet"<<std::endl;
          child->insert(value);
     }
 
@@ -292,6 +305,39 @@ void MainWindow::EnableMenus(void){
     ui->actionVector->setEnabled(true);
     ui->actionCreate_Random->setEnabled(true);
 }
+QBase* MainWindow::createBST(){
+    mdiArea = new QMdiArea;
+    mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    setCentralWidget(mdiArea);
+
+
+    qBst* t=new qBst(nullptr);
+
+    t->setWindowTitle("BST");
+    t->setMinimumSize(300,300);
+    mdiArea->addSubWindow(t);
+    mdiArea->setObjectName("BST");
+    t->show();
+    updateMenus();
+    return t;
+}
+void MainWindow::on_actionBST_triggered()
+{
+    ui->actionStep->setEnabled(false);
+    ui->actionMergeSort_2->setEnabled(false);
+    ui->actionBubbleSort_2->setEnabled(false);
+    ui->actionInsertionSort_2->setEnabled(false);
+    ui->actionQuickSort_2->setEnabled(false);
+    ui->actionCreate_Random->setEnabled(true);
+    ui->actionLinkedList->setEnabled(false);
+    ui->actionSteps->setEnabled(false);
+    ui->actionSteps_2->setEnabled(false);
+    ui->actionSteps_3->setEnabled(false);
+    ui->actionDelay->setEnabled(true);
+    createBST();
+}
+
 QBase* MainWindow::createLinkedList(){
 
     mdiArea = new QMdiArea;
@@ -310,6 +356,7 @@ QBase* MainWindow::createLinkedList(){
     updateMenus();
     return l;
 }
+
 QBase* MainWindow::createVector(){
 
 
@@ -585,4 +632,7 @@ void MainWindow::on_actionDelay_triggered()
         child->update();
     }
 }
+
+
+
 

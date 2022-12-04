@@ -133,8 +133,7 @@ void LinkedList::clear(){
             current = next;
         }
 
-        /* deref head_ref to affect the real head back
-            in the caller. */
+
         head = NULL;
 }
 void LinkedList::createRand(int size){

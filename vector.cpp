@@ -1,6 +1,8 @@
 #include "vector.h"
 #include "qapplication.h"
 #include "qdatetime.h"
+#include "qmessagebox.h"
+#include "qpushbutton.h"
 #include "step.h"
 #include "vectornode.h"
 #include <iostream>
@@ -17,6 +19,10 @@ Vector::Vector()
 void Vector::insert(int x){
    vectorNode* tmp=new vectorNode(x);
    int size=v.size();
+   if(x<0){
+
+       return;
+   }
    if(size>0){
    int xX=v[size-1]->getX();
    int y=v[size-1]->getY();

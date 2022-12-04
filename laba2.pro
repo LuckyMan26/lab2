@@ -16,6 +16,8 @@ SOURCES += \
     mymodel.cpp \
     node.cpp \
     qbase.cpp \
+    qbst.cpp \
+    qtnode.cpp \
     vector.cpp \
     vectornode.cpp
 
@@ -27,6 +29,8 @@ HEADERS += \
     mymodel.h \
     node.h \
     qbase.h \
+    qbst.h \
+    qtnode.h \
     vector.h \
     vectornode.h
 

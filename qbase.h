@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QGraphicsView>
-#include "vectorNode.h"
 class QBase : public QGraphicsView
 {
     Q_OBJECT

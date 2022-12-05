@@ -15,6 +15,7 @@ SOURCES += \
     mainwindow.cpp \
     mymodel.cpp \
     node.cpp \
+    qavl.cpp \
     qbase.cpp \
     qbst.cpp \
     qtnode.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     mainwindow.h \
     mymodel.h \
     node.h \
+    qavl.h \
     qbase.h \
     qbst.h \
     qtnode.h \

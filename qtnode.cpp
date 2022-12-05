@@ -83,3 +83,9 @@ int qTNode::getX(){
 int qTNode::getY(){
     return y;
 }
+int qTNode::getHeight(){
+    return height;
+}
+void qTNode::setHeight(int x){
+    this->height=x;
+}

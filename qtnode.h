@@ -5,6 +5,7 @@
 class qTNode : public QGraphicsItem
 {
     int data;
+    int height;
     int x,y;
     enum conditions{
         Nothing,
@@ -26,6 +27,8 @@ public:
     void SetY(int y);
     int getX();
     int getY();
+    int getHeight();
+    void setHeight(int x);
 protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

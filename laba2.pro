@@ -19,6 +19,8 @@ SOURCES += \
     qbase.cpp \
     qbst.cpp \
     qtnode.cpp \
+    twothreenode.cpp \
+    twothreetree.cpp \
     vector.cpp \
     vectornode.cpp
 
@@ -33,6 +35,8 @@ HEADERS += \
     qbase.h \
     qbst.h \
     qtnode.h \
+    twothreenode.h \
+    twothreetree.h \
     vector.h \
     vectornode.h
 

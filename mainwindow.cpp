@@ -15,6 +15,7 @@
 #include "vector.h"
 #include "dialog.h"
 #include "qbst.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -29,19 +30,14 @@ MainWindow::MainWindow(QWidget *parent)
     createToolBox();
     createStatusBar();
     createToolBar();
-    updateMenus();
+    enableBasicOperations();
 
+    insertField->setEnabled(true);
     ui->setupUi(this);
     ui->actionCreate_Random->setEnabled(false);
-    ui->actionDelay->setEnabled(false);
-    ui->actionStep->setEnabled(false);
-    ui->actionMergeSort_2->setEnabled(false);
-    ui->actionBubbleSort_2->setEnabled(false);
-    ui->actionInsertionSort_2->setEnabled(false);
-    ui->actionQuickSort_2->setEnabled(false);
-    ui->actionSteps->setEnabled(false);
-    ui->actionSteps_2->setEnabled(false);
-    ui->actionSteps_3->setEnabled(false);
+    disableBasicOperations();
+    disableSortings();
+
 }
 void MainWindow::createAction(){
     newAct = new QAction(tr("&New"), this);
@@ -101,16 +97,13 @@ void MainWindow::createToolBar()
     connect(btnStop, SIGNAL(clicked()),this, SLOT(stop()));
     connect(btnNxt,SIGNAL(clicked()),this,SLOT(nxtStep()));
     connect(btnPrev,SIGNAL(clicked()),this,SLOT(prevStep()));
-    lneInserir = new QLineEdit;
-    lneInserir->setMinimumSize(100,0);
-    lneInserir->setMaximumWidth(200);
-    lneInserir->setMaxLength(4);
-    lneInserir->setStatusTip("Enter number");
+    insertField = new QLineEdit;
+    insertField->setMinimumSize(100,0);
+    insertField->setMaximumWidth(200);
+    insertField->setMaxLength(4);
+    insertField->setStatusTip("Enter number");
 
-
-
-
-    editToolBar->addWidget(lneInserir);
+    editToolBar->addWidget(insertField);
     editToolBar->addWidget(btnInsert);
     editToolBar->addWidget(btnDelete);
     editToolBar->addWidget(btnSearch);
@@ -122,6 +115,46 @@ void MainWindow::createToolBar()
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+void MainWindow::disableSortings(){
+    ui->actionMergeSort->setEnabled(false);
+    ui->actionBubbleSort->setEnabled(false);
+    ui->actionInsertionSort->setEnabled(false);
+    ui->actionQuickSort->setEnabled(false);
+}
+void MainWindow::enableSortings(){
+    ui->actionMergeSort->setEnabled(true);
+    ui->actionBubbleSort->setEnabled(true);
+    ui->actionInsertionSort->setEnabled(true);
+    ui->actionQuickSort->setEnabled(true);
+}
+void MainWindow::disableBasicOperations(){
+    btnInsert->setEnabled(false);
+    btnDelete->setEnabled(false);
+    btnSearch->setEnabled(false);
+    btnNxt->setEnabled(false);
+    btnPrev->setEnabled(false);
+    btnStop->setEnabled(false);
+
+}
+void MainWindow::enableBasicOperations(){
+    btnInsert->setEnabled(true);
+    btnDelete->setEnabled(true);
+    btnSearch->setEnabled(true);
+    btnNxt->setEnabled(true);
+    btnPrev->setEnabled(true);
+    btnStop->setEnabled(true);
+
+}
+void MainWindow::disableCreatingNewFiles(){
+   ui->actionAVL->setEnabled(false);
+   ui->actionBST->setEnabled(false);
+   ui->actionLinkedList->setEnabled(false);
+}
+void MainWindow::enableCreatingNewFiles(){
+   ui->actionAVL->setEnabled(true);
+   ui->actionBST->setEnabled(true);
+   ui->actionLinkedList->setEnabled(true);
 }
 bool MainWindow::activeMdiChild(){
     if (mdiArea->isActiveWindow()){
@@ -146,20 +179,7 @@ bool MainWindow::isVectorWindow(void){
     return false;
 }
 
-void MainWindow::updateMenus(void){
-     bool hasMdiChild = (activeMdiChild());    
-     bool isVector = isVectorWindow();
-     btnInsert->setEnabled(hasMdiChild);
-     btnDelete->setEnabled(hasMdiChild);
-     btnSearch->setEnabled(hasMdiChild);
-     btnNxt->setEnabled(false);
-     btnPrev->setEnabled(false);
-     btnStop->setEnabled(false);
-     lneInserir->clear();
-     lneInserir->setEnabled(hasMdiChild);
 
-
-}
 void MainWindow::nxtStep(){
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
     for(int i=0;i<windows.size();i++){
@@ -187,8 +207,7 @@ void MainWindow::prevStep(){
 void MainWindow::insertData(int x)
 {
     int value=0;
-
-    value=lneInserir->text().toInt();
+    value=insertField->text().toInt();
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
 
     for(int i=0;i<windows.size();i++){
@@ -204,7 +223,6 @@ void MainWindow::insertData(int x)
          msg->exec();
              }
          }
-         std::cout<<"Privet"<<std::endl;
          child->insert(value);
     }
 
@@ -212,29 +230,33 @@ void MainWindow::insertData(int x)
         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
         child->update();
     }
-     updateMenus();
+    enableBasicOperations();
+    if(isVectorWindow())
+        enableSortings();
 }
 void MainWindow::searchData(int x)
 {
     int value=0;
 
-    value=lneInserir->text().toInt();
-    disableMenus();
-    std::cout<<"value "<<value<<std::endl;
+    value=insertField->text().toInt();
+    disableBasicOperations();
+    disableSortings();
     int res;
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
     for(int i=0;i<windows.size();i++){
          QBase *child = qobject_cast<QBase *>(windows[i]->widget());
          res=child->search(value);
     }
-    EnableMenus();
+    enableBasicOperations();
+    if(isVectorWindow())
+        enableSortings();
 
 }
 void MainWindow::deleteData(int x){
     int value=0;
-    value=lneInserir->text().toInt();
-    std::cout<<value<<std::endl;
-    disableMenus();
+    value=insertField->text().toInt();
+    disableBasicOperations();
+    disableSortings();
     btnStop->setEnabled(false);
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
     for(int i=0;i<windows.size();i++){
@@ -245,7 +267,8 @@ void MainWindow::deleteData(int x){
         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
         child->update();
     }
-    EnableMenus();
+    enableBasicOperations();
+    enableSortings();
 }
 void MainWindow::stop(void){
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
@@ -258,54 +281,8 @@ void MainWindow::stop(void){
         child->update();
     }
 }
-void MainWindow::disableMenus(){
 
-    btnInsert->setEnabled(false);
-    btnDelete->setEnabled(false);
-    btnSearch->setEnabled(false);
-    btnNxt->setEnabled(false);
-    btnPrev->setEnabled(false);
-    btnStop->setEnabled(true);
-    lneInserir->clear();
-    lneInserir->setEnabled(false);
-    ui->actionStep->setEnabled(false);
-    ui->actionMergeSort_2->setEnabled(false);
-    ui->actionBubbleSort_2->setEnabled(false);
-    ui->actionInsertionSort_2->setEnabled(false);
-    ui->actionQuickSort_2->setEnabled(false);
-    ui->actionCreate_Random->setEnabled(false);
-    ui->actionLinkedList->setEnabled(false);
-    ui->actionSteps->setEnabled(false);
-    ui->actionSteps_2->setEnabled(false);
-    ui->actionSteps_3->setEnabled(false);
-    ui->actionVector_2->setEnabled(false);
-    ui->actionVector->setEnabled(false);
-    ui->actionCreate_Random->setEnabled(false);
-}
-void MainWindow::EnableMenus(void){
 
-    btnInsert->setEnabled(true);
-    btnDelete->setEnabled(true);
-    btnSearch->setEnabled(true);
-    btnNxt->setEnabled(true);
-    btnPrev->setEnabled(true);
-    btnStop->setEnabled(true);
-    lneInserir->clear();
-    lneInserir->setEnabled(true);
-    ui->actionStep->setEnabled(true);
-    ui->actionMergeSort_2->setEnabled(true);
-    ui->actionBubbleSort_2->setEnabled(true);
-    ui->actionInsertionSort_2->setEnabled(true);
-    ui->actionQuickSort_2->setEnabled(true);
-    ui->actionCreate_Random->setEnabled(true);
-    ui->actionLinkedList->setEnabled(true);
-    ui->actionSteps->setEnabled(true);
-    ui->actionSteps_2->setEnabled(true);
-    ui->actionSteps_3->setEnabled(true);
-    ui->actionVector_2->setEnabled(true);
-    ui->actionVector->setEnabled(true);
-    ui->actionCreate_Random->setEnabled(true);
-}
 QBase* MainWindow::createBST(){
     mdiArea = new QMdiArea;
     mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -320,21 +297,16 @@ QBase* MainWindow::createBST(){
     mdiArea->addSubWindow(t);
     mdiArea->setObjectName("BST");
     t->show();
-    updateMenus();
+    enableBasicOperations();
+    if(isVectorWindow())
+        enableSortings();
     return t;
 }
 void MainWindow::on_actionBST_triggered()
 {
-    ui->actionStep->setEnabled(false);
-    ui->actionMergeSort_2->setEnabled(false);
-    ui->actionBubbleSort_2->setEnabled(false);
-    ui->actionInsertionSort_2->setEnabled(false);
-    ui->actionQuickSort_2->setEnabled(false);
+    disableSortings();
     ui->actionCreate_Random->setEnabled(true);
-    ui->actionLinkedList->setEnabled(false);
-    ui->actionSteps->setEnabled(false);
-    ui->actionSteps_2->setEnabled(false);
-    ui->actionSteps_3->setEnabled(false);
+    enableCreatingNewFiles();
     ui->actionDelay->setEnabled(true);
     createBST();
 }
@@ -354,7 +326,8 @@ QBase* MainWindow::createLinkedList(){
     mdiArea->addSubWindow(l);
     mdiArea->setObjectName("LinkedList");
     l->show();
-    updateMenus();
+    if(isVectorWindow())
+        enableSortings();
     return l;
 }
 
@@ -369,102 +342,72 @@ QBase* MainWindow::createVector(){
     Vector* v=new Vector();
 
 
-    v->setWindowTitle("Sorting Algorithms");
+    v->setWindowTitle("Sorting Algorithms" );
     v->setMinimumSize(300,300);
     mdiArea->addSubWindow(v);
     mdiArea->setObjectName("Sorting Algorithms");
     v->show();
-    updateMenus();
+    enableBasicOperations();
+
+     enableSortings();
     return v;
 
 }
 void MainWindow::on_actionLinkedList_triggered()
 {
-    ui->actionStep->setEnabled(false);
-    ui->actionMergeSort_2->setEnabled(false);
-    ui->actionBubbleSort_2->setEnabled(false);
-    ui->actionInsertionSort_2->setEnabled(false);
-    ui->actionQuickSort_2->setEnabled(false);
-    ui->actionCreate_Random->setEnabled(true);
-    ui->actionLinkedList->setEnabled(false);
-    ui->actionSteps->setEnabled(false);
-    ui->actionSteps_2->setEnabled(false);
-    ui->actionSteps_3->setEnabled(false);
+    disableSortings();
     ui->actionDelay->setEnabled(true);
-   createLinkedList();
+    enableCreatingNewFiles();
+    createLinkedList();
 }
 
 
 void MainWindow::on_actionVector_triggered()
 {
-    ui->actionStep->setEnabled(true);
-    ui->actionMergeSort_2->setEnabled(true);
-    ui->actionBubbleSort_2->setEnabled(true);
-    ui->actionInsertionSort_2->setEnabled(true);
-    ui->actionQuickSort_2->setEnabled(true);
+    enableSortings();
     ui->actionCreate_Random->setEnabled(true);
-    ui->actionLinkedList->setEnabled(true);
-    ui->actionSteps->setEnabled(true);
-    ui->actionSteps_2->setEnabled(true);
-    ui->actionSteps_3->setEnabled(true);
+    enableCreatingNewFiles();
     ui->actionDelay->setEnabled(true);
     createVector();
 }
 
-
-void MainWindow::on_actionBubbleSort_triggered()
+void MainWindow::on_actionInsertionSort_triggered()
 {
-
+    std::cout<<"hello from here\n";
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
-    QThread thread;
-    srand(time(NULL));
+    disableBasicOperations();
+    disableSortings();
     for(int i=0;i<windows.size();i++){
-
-        if(isVectorWindow()){
-         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
-
-         child->bubbleSort();
-        }
-    }
-    for(int i=0;i<windows.size();i++){
-        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
-        child->update();
-    }
-}
-
-
-void MainWindow::on_actionInsertionSort_2_triggered()
-{
-    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
-    disableMenus();
-    for(int i=0;i<windows.size();i++){
-         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         QBaseSortable *child = dynamic_cast<QBaseSortable *>(windows[i]->widget());
          child->insertionSort();
     }
     for(int i=0;i<windows.size();i++){
         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
         child->update();
     }
-    EnableMenus();
+    enableBasicOperations();
+    enableSortings();
     btnNxt->setEnabled(true);
     btnPrev->setEnabled(true);
     btnStop->setEnabled(false);
 }
 
 
-void MainWindow::on_actionQuickSort_2_triggered()
+void MainWindow::on_actionQuickSort_triggered()
 {
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
-    disableMenus();
+    disableBasicOperations();
+    disableSortings();
     for(int i=0;i<windows.size();i++){
-         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         QBaseSortable *child = dynamic_cast<QBaseSortable *>(windows[i]->widget());
          child->quickSort();
     }
     for(int i=0;i<windows.size();i++){
         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
         child->update();
     }
-    EnableMenus();
+    enableBasicOperations();
+    enableSortings();
     btnNxt->setEnabled(true);
     btnPrev->setEnabled(true);
     btnStop->setEnabled(false);
@@ -485,7 +428,6 @@ void MainWindow::on_actionCreate_Random_triggered()
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
     for(int i=0;i<windows.size();i++){
          QBase *child = qobject_cast<QBase *>(windows[i]->widget());
-
          child->createRand(value);
     }
     for(int i=0;i<windows.size();i++){
@@ -494,128 +436,47 @@ void MainWindow::on_actionCreate_Random_triggered()
     }
 }
 
-void MainWindow::on_actionMergeSort_2_triggered()
+void MainWindow::on_actionMergeSort_triggered()
 {
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
-    disableMenus();
-
-
+    disableBasicOperations();
+    disableSortings();
     for(int i=0;i<windows.size();i++){
-         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         QBaseSortable *child = dynamic_cast<QBaseSortable *>(windows[i]->widget());
          child->mergeSort();
     }
     for(int i=0;i<windows.size();i++){
         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
         child->update();
     }
-    EnableMenus();
+    enableBasicOperations();
+    enableSortings();
     btnNxt->setEnabled(true);
     btnPrev->setEnabled(true);
     btnStop->setEnabled(false);
 }
-
-
-void MainWindow::on_actionBubbleSort_2_triggered()
+void MainWindow::on_actionBubbleSort_triggered()
 {
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
 
     srand(time(NULL));
-    disableMenus();
+    disableBasicOperations();
+    disableSortings();
+    btnStop->setEnabled(true);
     for(int i=0;i<windows.size();i++){
-         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+         QBaseSortable *child = dynamic_cast<QBaseSortable *>(windows[i]->widget());
          child->bubbleSort();
     }
     for(int i=0;i<windows.size();i++){
         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
         child->update();
     }
-    EnableMenus();
+    enableBasicOperations();
+    enableSortings();
     btnNxt->setEnabled(true);
     btnPrev->setEnabled(true);
     btnStop->setEnabled(false);
 }
-
-
-void MainWindow::on_actionSteps_2_triggered()
-{
-    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
-    QThread thread;
-    srand(time(NULL));
-
-    for(int i=0;i<windows.size();i++){
-         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
-         child->makeStepRegime();
-         child->bubbleSort();
-
-    }
-    for(int i=0;i<windows.size();i++){
-        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
-        child->setFirstStep();
-    }
-
-}
-
-
-void MainWindow::on_actionStep_triggered()
-{
-    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
-    QThread thread;
-    srand(time(NULL));
-
-    for(int i=0;i<windows.size();i++){
-         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
-         child->makeStepRegime();
-         child->insertionSort();
-
-    }
-    std::cout<<"Hello";
-    for(int i=0;i<windows.size();i++){
-        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
-        child->setFirstStep();
-    }
-}
-
-
-void MainWindow::on_actionSteps_triggered()
-{
-    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
-    QThread thread;
-    srand(time(NULL));
-
-    for(int i=0;i<windows.size();i++){
-         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
-         child->makeStepRegime();
-         child->quickSort();
-
-    }
-    for(int i=0;i<windows.size();i++){
-        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
-
-    }
-    btnNxt->setEnabled(true);
-    btnPrev->setEnabled(true);
-
-}
-
-
-void MainWindow::on_actionSteps_3_triggered()
-{
-    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
-    QThread thread;
-    srand(time(NULL));
-
-    for(int i=0;i<windows.size();i++){
-         QBase *child = qobject_cast<QBase *>(windows[i]->widget());
-         child->makeStepRegime();
-         child->mergeSort();
-
-    }
-    for(int i=0;i<windows.size();i++){
-        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
-        child->setFirstStep();
-    }
-}
-
 
 void MainWindow::on_actionDelay_triggered()
 {

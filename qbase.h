@@ -15,10 +15,10 @@ public:
     virtual void insert(int n)=0;
     virtual int search(int n)=0;
     virtual void remove(int n)=0;
-    virtual void bubbleSort()=0;
+    /*virtual void bubbleSort()=0;
     virtual void insertionSort()=0;
     virtual void quickSort()=0;
-    virtual void mergeSort()=0;
+    virtual void mergeSort()=0;*/
 
     virtual void createRand(int size)=0;
     void scaleView(qreal scaleFactor);
@@ -33,7 +33,7 @@ public:
 
     bool isStop(void);
     void Stop(void);
-    virtual std::vector<std::vector<int>> getSteps()=0;
+    //virtual std::vector<std::vector<int>> getSteps()=0;
     virtual void setFirstStep()=0;
     virtual void setNextStep()=0;
     virtual void setPrevStep()=0;
@@ -44,5 +44,13 @@ public:
 signals:
 
 };
+class QBaseSortable : public QBase{
+public:
 
+    virtual void bubbleSort()=0;
+    virtual void insertionSort()=0;
+    virtual void quickSort()=0;
+    virtual void mergeSort()=0;
+};
+class QBaseNonSortable : public QBase{};
 #endif // QBASE_H

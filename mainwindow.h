@@ -31,7 +31,7 @@ class MainWindow : public QMainWindow
     QPushButton* btnSearch;
     QPushButton* btnStop;
     QMdiArea* mdiArea=nullptr;
-    QLineEdit* lneInserir;
+    QLineEdit* insertField;
     QPushButton* btnNxt;
     QPushButton* btnPrev;
 
@@ -49,7 +49,6 @@ public:
     void createStatusBar();
     void createToolBar();
     void createAction();
-    void updateMenus();
     void setActiveSubWindow(QWidget *window);
     private slots:
     void insertData(int x=0);
@@ -64,30 +63,26 @@ public:
     QBase* createVector();
     QBase* createBST();
     void stop(void);
-    void EnableMenus(void);
+    void disableSortings();
+    void enableSortings();
+    void disableBasicOperations();
+    void enableBasicOperations();
+    void disableCreatingNewFiles();
+    void enableCreatingNewFiles();
     void on_actionLinkedList_triggered();
 
     void on_actionVector_triggered();
 
-    void on_actionBubbleSort_triggered();
-    void disableMenus();
     void on_actionCreate_Random_triggered();
 
-    void on_actionBubbleSort_2_triggered();
+    void on_actionBubbleSort_triggered();
 
-    void on_actionSteps_2_triggered();
 
-    void on_actionInsertionSort_2_triggered();
+    void on_actionInsertionSort_triggered();
 
-    void on_actionQuickSort_2_triggered();
+    void on_actionQuickSort_triggered();
 
-    void on_actionMergeSort_2_triggered();
-
-    void on_actionStep_triggered();
-
-    void on_actionSteps_triggered();
-
-    void on_actionSteps_3_triggered();
+    void on_actionMergeSort_triggered();
 
     void on_actionDelay_triggered();
 

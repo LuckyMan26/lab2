@@ -5,7 +5,7 @@
 #include "qbase.h"
 class Node;
 
-class LinkedList : public QBase
+class LinkedList : public QBaseNonSortable
 {
     Node* head=nullptr;
 public:

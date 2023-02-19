@@ -2,29 +2,30 @@
 #define QTNODE_H
 
 #include <QGraphicsItem>
+#include "vectornode.h"
 class qTNode : public QGraphicsItem
 {
     int data;
-    int height;
-    int x,y;
+    qreal x,y;
     enum conditions{
         Nothing,
         Checking,
         Suits
     };
+    int height;
     int cond=Nothing;
 public:
 
     qTNode* left=nullptr;
     qTNode* right=nullptr;
-    qTNode();
+    qTNode(int data, qTNode* parent);
     ~qTNode();
-    qTNode(int data=-1,qTNode* l=nullptr,qTNode* r=nullptr);
+    qTNode(int data,qTNode* l,qTNode* r);
     int getData();
     void setData(int x);
     void setCond(int x);
-    void SetX(int x);
-    void SetY(int y);
+    void SetX(qreal x);
+    void SetY(qreal y);
     int getX();
     int getY();
     int getHeight();

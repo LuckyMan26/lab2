@@ -67,6 +67,9 @@ bool QBase::isStop(void){
 void QBase::Stop(void){
     stop=true;
 }
+void QBase::unStop(void){
+    stop = false;
+}
 void QBase::setDelay(int del){
     this->delay=del;
 }
@@ -81,4 +84,16 @@ void QBase::wait(int interval){
         QApplication::processEvents();
     }
     delete timer;
+}
+void QBase::setLastAlgorithm(algorithms algo){
+    lastAlgorithms = algo;
+}
+algorithms QBase::getLastAlgorithm(){
+    return lastAlgorithms;
+}
+bool QBase::clearPreviousSteps_(){
+    return clearPreviousSteps;
+}
+void QBase::setclearPreviousSteps_(bool x){
+    clearPreviousSteps = x;
 }

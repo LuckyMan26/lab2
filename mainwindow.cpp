@@ -79,24 +79,29 @@ void MainWindow::createToolBar()
     btnNxt=new QPushButton;
     btnPrev=new QPushButton;
     btnStop = new QPushButton;
+    btnGo = new QPushButton;
+
     btnInsert->setText("Insert");
     btnDelete->setText("Delete");
     btnSearch->setText("Search");
     btnNxt->setText("Next step");
     btnPrev->setText("Previous step");
     btnStop->setText("Stop");
+    btnGo->setText("Go");
     btnInsert->setIcon(QIcon(":/images/inserir.png"));
     btnDelete->setIcon(QIcon(":/images/delete.png"));
     btnSearch->setIcon(QIcon(":/images/buscar.png"));
     btnNxt->setIcon(QIcon(":/images/green-right-arrow-transparent.png"));
     btnPrev->setIcon(QIcon(":/images/left_arrow.jpg"));
     btnStop->setIcon(QIcon(":/images/stop.png"));
+    btnGo->setIcon(QIcon(":/images/go.jpg"));
     connect(btnInsert, SIGNAL(clicked()),this, SLOT(insertData()));
     connect(btnDelete, SIGNAL(clicked()),this, SLOT(deleteData()));
     connect(btnSearch, SIGNAL(clicked()),this, SLOT(searchData()));
     connect(btnStop, SIGNAL(clicked()),this, SLOT(stop()));
     connect(btnNxt,SIGNAL(clicked()),this,SLOT(nxtStep()));
     connect(btnPrev,SIGNAL(clicked()),this,SLOT(prevStep()));
+    connect(btnGo,SIGNAL(clicked()),this,SLOT(go()));
     insertField = new QLineEdit;
     insertField->setMinimumSize(100,0);
     insertField->setMaximumWidth(200);
@@ -110,6 +115,7 @@ void MainWindow::createToolBar()
     editToolBar->addWidget(btnNxt);
     editToolBar->addWidget(btnPrev);
     editToolBar->addWidget(btnStop);
+    editToolBar->addWidget(btnGo);
 }
 
 MainWindow::~MainWindow()
@@ -349,9 +355,8 @@ QBase* MainWindow::createVector(){
     v->show();
     enableBasicOperations();
 
-     enableSortings();
+    enableSortings();
     return v;
-
 }
 void MainWindow::on_actionLinkedList_triggered()
 {
@@ -360,8 +365,6 @@ void MainWindow::on_actionLinkedList_triggered()
     enableCreatingNewFiles();
     createLinkedList();
 }
-
-
 void MainWindow::on_actionVector_triggered()
 {
     enableSortings();
@@ -373,10 +376,10 @@ void MainWindow::on_actionVector_triggered()
 
 void MainWindow::on_actionInsertionSort_triggered()
 {
-    std::cout<<"hello from here\n";
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
     disableBasicOperations();
     disableSortings();
+    btnStop->setEnabled(true);
     for(int i=0;i<windows.size();i++){
          QBaseSortable *child = dynamic_cast<QBaseSortable *>(windows[i]->widget());
          child->insertionSort();
@@ -398,6 +401,8 @@ void MainWindow::on_actionQuickSort_triggered()
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
     disableBasicOperations();
     disableSortings();
+    btnStop->setEnabled(true);
+
     for(int i=0;i<windows.size();i++){
          QBaseSortable *child = dynamic_cast<QBaseSortable *>(windows[i]->widget());
          child->quickSort();
@@ -441,6 +446,8 @@ void MainWindow::on_actionMergeSort_triggered()
     QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
     disableBasicOperations();
     disableSortings();
+    btnStop->setEnabled(true);
+
     for(int i=0;i<windows.size();i++){
          QBaseSortable *child = dynamic_cast<QBaseSortable *>(windows[i]->widget());
          child->mergeSort();
@@ -494,7 +501,50 @@ void MainWindow::on_actionDelay_triggered()
         child->update();
     }
 }
+void MainWindow::go(){
+    QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
+    algorithms algo;
+    int n=insertField->text().toInt();
 
+    for(int i=0;i<windows.size();i++){
+         QBaseSortable *child = dynamic_cast<QBaseSortable *>(windows[i]->widget());
+         algo = child->getLastAlgorithm();
+         child->unStop();
+         child->setclearPreviousSteps_(false);
+         switch (algo) {
+         case algorithms::inserting:
+                child->insert(n);
+                break;
+         case algorithms::deleting:
+                child->remove(n);
+                break;
+         case algorithms::searching:
+                child->search(n);
+                break;
+         case algorithms::bubbleSort:
+                child->bubbleSort();
+                break;
+         case algorithms::insertionSort:
+                child->insertionSort();
+                break;
+         case algorithms::quickSort:
+                child->quickSort();
+                break;
+         case algorithms::mergeSort:
+                child->mergeSort();
+                break;
+         default:
+             break;
+         }
+    }
+    for(int i=0;i<windows.size();i++){
+        QBase *child = qobject_cast<QBase *>(windows[i]->widget());
+        child->update();
+    }
+    disableBasicOperations();
+    disableSortings();
+    btnStop->setEnabled(true);
+}
 
 
 

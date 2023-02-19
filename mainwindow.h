@@ -30,6 +30,7 @@ class MainWindow : public QMainWindow
     QPushButton* btnDelete;
     QPushButton* btnSearch;
     QPushButton* btnStop;
+    QPushButton* btnGo;
     QMdiArea* mdiArea=nullptr;
     QLineEdit* insertField;
     QPushButton* btnNxt;
@@ -56,6 +57,7 @@ public:
     void deleteData(int x=0);
     void nxtStep();
     void prevStep();
+    void go();
     bool activeMdiChild(void);
     bool isLinkedListWindow(void);
     bool isVectorWindow(void);

@@ -29,6 +29,7 @@ Vector::~Vector(){
 
 }
 void Vector::insert(int x){
+   setLastAlgorithm(algorithms::inserting);
    vectorNode* tmp=new vectorNode(x);
    int size=v.size();
    if(x<0){
@@ -52,6 +53,7 @@ void Vector::insert(int x){
 }
 
 void Vector::remove(int x){
+     setLastAlgorithm(algorithms::deleting);
     int index;
     for(int i=0;i<v.size();i++){
         v[i]->setCond(conditions::Checking);
@@ -70,6 +72,7 @@ void Vector::remove(int x){
     }
 }
 int Vector::search(int x){
+     setLastAlgorithm(algorithms::searching);
     for(int i=0;i<v.size();i++){
         QThread::msleep(300);
         v[i]->setCond(conditions::Checking);
@@ -97,8 +100,11 @@ void Vector::wait(int interval){
     delete timer;
 }
 void Vector::bubbleSort(){
+setLastAlgorithm(algorithms::bubbleSort);
+if(clearPreviousSteps_()){
 getBubbleSortSteps();
 setFirstStep();
+}
 if(!getStepRegime()){
     for(int i = 1 ;i < steps.size();i++){
         if(isStop()){
@@ -106,16 +112,21 @@ if(!getStepRegime()){
        }
         wait(getDelay());
         setNextStep();
-
     }
-
 }
 }
 
 
 void Vector::getBubbleSortSteps(){
-    int size=v.size();
+    if(clearPreviousSteps_()){
     steps.clear();
+    curStep = 0;
+    }
+    else{
+        curStep ++;
+    }
+    int size=v.size();
+
     for( int i=0;i<size;i++){
         for( int j=0;j<size-i-1;j++){
              std::vector<vectorNode> temp;
@@ -145,8 +156,11 @@ void Vector::getBubbleSortSteps(){
     }
 }
 void Vector::insertionSort(){
+    setLastAlgorithm(algorithms::insertionSort);
+    if(clearPreviousSteps_()){
     getInsertionSortSteps();
     setFirstStep();
+    }
     if(!getStepRegime()){
         for(int i = 1 ;i < steps.size();i++){
             if(isStop()){
@@ -159,7 +173,10 @@ void Vector::insertionSort(){
     }
 }
 void Vector::getInsertionSortSteps(){
+    if(clearPreviousSteps_()){
     steps.clear();
+    curStep = 0;
+    }
     int key;
     int size=v.size();
     int j;
@@ -250,17 +267,19 @@ void Vector::qSort(int low,int high){
 
 }
 void Vector::quickSort(){
+    setLastAlgorithm(algorithms::quickSort);
+    if(clearPreviousSteps_()){
     getQuickSortSteps();
     setFirstStep();
-
+}
     int size=v.size();
 
     if(!getStepRegime()){
-        if(isStop()){
-              return;
-       }
-        for(int i = 1 ;i < steps.size();i++){
 
+        for(int i = 1 ;i < steps.size();i++){
+            if(isStop()){
+                  return;
+           }
             wait(getDelay());
             setNextStep();
         }
@@ -270,7 +289,10 @@ void Vector::quickSort(){
 
 }
 void Vector::getQuickSortSteps(){
+if(clearPreviousSteps_()){
 steps.clear();
+curStep = 0;
+}
 qSort(0,v.size()-1);
 for(std::size_t i=0;i<v.size();i++){
     steps[steps.size()-1][i].setCond(conditions::Nothing);
@@ -309,6 +331,7 @@ void Vector::merge(std::vector<vectorNode> vec,vectorNode* tmp,int bot, int mid,
 }
 
 void Vector::mergeSort(){
+    setLastAlgorithm(algorithms::mergeSort);
     getMergeSortSteps();
     setFirstStep();
         for(std::size_t i = 1 ;i < steps.size();i++){
@@ -322,8 +345,10 @@ void Vector::mergeSort(){
 
 }
 void Vector::getMergeSortSteps(){
+    if(clearPreviousSteps_()){
     steps.clear();
     mergeSort_();
+    }
     for(std::size_t i = 0;i<v.size();i++){
         steps[steps.size()-1][i].setCond(conditions::Nothing);
     }
@@ -389,6 +414,8 @@ void Vector::createRand(int size){
     }
     steps.clear();
     v.clear();
+    curStep = 0;
+    setclearPreviousSteps_(true);
     for(int i=0;i<size;i++){
         temp=rand()%(2*size);
         insert(temp);

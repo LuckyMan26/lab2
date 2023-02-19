@@ -29,7 +29,7 @@ qTNode* qAVL::left_rotate(qTNode* x)
     return y;
 }
 qTNode* newNode(int key){
-    qTNode* node = new qTNode(key);
+    qTNode* node = new qTNode(key,nullptr);
     node->setHeight(1);
     node->left = nullptr;
     node->right = nullptr;

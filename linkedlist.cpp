@@ -4,8 +4,8 @@
 #include <QThread>
 #include "linkedlist.h"
 #include "node.h"
-LinkedList::LinkedList(Node* head):
-    QBase()
+LinkedList::LinkedList(Node* head)
+
 {
 this->head=head;
 scene()->addItem(head);

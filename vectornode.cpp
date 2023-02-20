@@ -8,6 +8,12 @@ vectorNode::vectorNode(int data){
 }
 vectorNode::vectorNode(const vectorNode& node){
     this->data=node.getData();
+    this->cond = node.getCond();
+    SetX(node.getX());
+    SetX(node.getY());
+}
+conditions vectorNode::getCond() const{
+    return cond;
 }
 int vectorNode::getX() const{
    return x;
@@ -29,7 +35,7 @@ void vectorNode::SetY(int y){
 void vectorNode::setData(int x){
    this->data=x;
 }
-void vectorNode::setCond(int x){
+void vectorNode::setCond(conditions x){
     this->cond=x;
 }
 

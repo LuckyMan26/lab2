@@ -14,9 +14,6 @@
         <file>images/logo.png</file>
         <file>images/logo_qt.jpeg</file>
         <file>images/logo_qt.png</file>
-        <file>images/logotipo_base.png</file>
-        <file>images/logotipo_base.xcf</file>
-        <file>images/logotipo_base2.png</file>
         <file>images/Resource.qrc</file>
         <file>images/sair.png</file>
         <file>images/screenshot.png</file>
@@ -27,5 +24,6 @@
         <file>images/green-right-arrow-transparent.png</file>
         <file>images/left_arrow.jpg</file>
         <file>images/stop.png</file>
+        <file>images/go.jpg</file>
     </qresource>
 </RCC>

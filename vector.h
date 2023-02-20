@@ -7,15 +7,18 @@
 
 using namespace std;
 class vectorNode;
-class Vector: public QBase
+class Vector: public QBaseSortable
 {
     std::vector<vectorNode*> v;
-    void qSort(std::vector<vectorNode*>& vec,int low,int high);
-    void merge(std::vector<vectorNode*> vec,vectorNode* tmp,int low, int mid, int high);
-    vector<vector<int>> vec;
+    void qSort(int low,int high);
+    void merge(std::vector<vectorNode> vec,vectorNode* tmp,int low, int mid, int high);
+    vector<vector<vectorNode>> steps;
+
     int curStep=0;
 public:
     Vector();
+    Vector( int size);
+    ~Vector();
     void insert(int x);
     int search(int x);
     void remove(int x);
@@ -33,7 +36,7 @@ private slots:
     void zoomIn(void);
     void zoomOut(void);
     void update(void);
-    std::vector<std::vector<int>> getSteps();
+    std::vector<std::vector<vectorNode>> getSteps();
     void setFirstStep();
     void setNextStep();
     void setPrevStep();
@@ -41,12 +44,12 @@ private slots:
 
 private:
     void wait(int interval);
-    std::vector<int> getIntVector(void);
-    void bubbleSort(std::vector<int> v1);
-    void insertionSort(std::vector<int> v1);
-    void quickSort(std::vector<int> v1);
-    void qSort(std::vector<int>& v1,int low,int high);
-    void merge(std::vector<int>& vec,int* tmp,int low, int mid, int high);
+    void getBubbleSortSteps();
+    void getInsertionSortSteps();
+    void getQuickSortSteps();
+    void getMergeSortSteps();
+
+    void mergeSort_();
     int getCurStep(void);
 };
 

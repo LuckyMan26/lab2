@@ -21,6 +21,7 @@ public:
     void quickSort();
     void mergeSort();
     void createRand(int size);
+    void clear();
     std::vector<std::vector<int>> getSteps();
     void setFirstStep();
     void setNextStep();

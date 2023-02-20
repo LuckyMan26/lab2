@@ -2,6 +2,7 @@
 #include "qwidget.h"
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
+#include <iostream>
 vectorNode::vectorNode(int data){
     this->data=data;
 }
@@ -43,10 +44,11 @@ void vectorNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     else if(cond==Suits){
         painter->setBrush(QColor(Qt::green));
     }
-
-    QRect number(0,300-data*10,20,300);
+    int width=widget->width();
+    int height=widget->height();
+    QRect number(QPoint(0,height-data*10),QSize(20,10*data));
     painter->drawRect(number);
-    QRect rect = QRect(0,200-data*10,15,220);
+    QRect rect = QRect(QPoint(0,height-data*10),QSize(20,10*data));
     painter->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::SquareCap, Qt::RoundJoin));
     painter->drawText(rect,Qt::AlignCenter,QString::number(data));
 }

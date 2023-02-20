@@ -4,6 +4,8 @@
 #include <cmath>
 #include "qapplication.h"
 #include "qbase.h"
+#include "qelapsedtimer.h"
+#include <iostream>
 QBase::QBase()
 
 {
@@ -59,4 +61,24 @@ void QBase::update(){
     scene()->setSceneRect(scene()->itemsBoundingRect());
 
 }
+bool QBase::isStop(void){
+    return stop;
+}
+void QBase::Stop(void){
+    stop=true;
+}
+void QBase::setDelay(int del){
+    this->delay=del;
+}
+int QBase::getDelay(){
+    return delay;
+}
+void QBase::wait(int interval){
+    QElapsedTimer* timer = new QElapsedTimer();
+    timer->start();
 
+    while(timer->elapsed() < interval) {
+        QApplication::processEvents();
+    }
+    delete timer;
+}

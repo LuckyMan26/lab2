@@ -52,7 +52,7 @@ int LinkedList::search(int x){
     Node* temp=head;
     int index=0;
     while(temp){
-        QThread::msleep(300);
+        wait(getDelay());
         temp->setCond(1);
         this->repaint();
         temp->setCond(0);
@@ -75,7 +75,7 @@ void LinkedList::remove(int x){
     int index=0;
 
     while(temp){
-        QThread::msleep(300);
+        wait(getDelay());
         temp->setCond(1);
         this->repaint();
         temp->setCond(0);
@@ -103,6 +103,7 @@ void LinkedList::remove(int x){
                 }
             }
             delete temp;
+            return;
             }
         }
         index++;
@@ -122,9 +123,23 @@ void LinkedList::quickSort(){
 void LinkedList::mergeSort(){
 
 }
+void LinkedList::clear(){
+    Node* current = head;
+    Node* next = NULL;
+        while (current != NULL)
+        {
+            next = current->next;
+            delete (current);
+            current = next;
+        }
+
+
+        head = NULL;
+}
 void LinkedList::createRand(int size){
     int temp;
     srand(time(NULL));
+    clear();
     for(int i=0;i<size;i++){
         temp=rand()%(2*size);
         insert(temp);

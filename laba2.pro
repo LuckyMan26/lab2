@@ -8,25 +8,41 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    delaywindow.cpp \
+    dialog.cpp \
     linkedlist.cpp \
     main.cpp \
     mainwindow.cpp \
     mymodel.cpp \
     node.cpp \
+    qavl.cpp \
     qbase.cpp \
+    qbst.cpp \
+    qtnode.cpp \
+    twothreenode.cpp \
+    twothreetree.cpp \
     vector.cpp \
     vectornode.cpp
 
 HEADERS += \
+    delaywindow.h \
+    dialog.h \
     linkedlist.h \
     mainwindow.h \
     mymodel.h \
     node.h \
+    qavl.h \
     qbase.h \
+    qbst.h \
+    qtnode.h \
+    twothreenode.h \
+    twothreetree.h \
     vector.h \
     vectornode.h
 
 FORMS += \
+    delaywindow.ui \
+    dialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.

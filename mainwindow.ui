@@ -81,9 +81,16 @@
     </property>
     <addaction name="actionCreate_Random"/>
    </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="actionDelay"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSorting"/>
    <addaction name="menuCreateRandom"/>
+   <addaction name="menuSettings"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionLinkedList">
@@ -92,11 +99,17 @@
    </property>
   </action>
   <action name="actionBST">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>BST </string>
    </property>
   </action>
   <action name="actionAVL">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>AVL</string>
    </property>
@@ -154,6 +167,11 @@
   <action name="actionSteps_3">
    <property name="text">
     <string>Steps</string>
+   </property>
+  </action>
+  <action name="actionDelay">
+   <property name="text">
+    <string>Delay</string>
    </property>
   </action>
  </widget>

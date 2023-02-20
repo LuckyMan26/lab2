@@ -3,11 +3,12 @@
 
 #include <QObject>
 #include <QGraphicsView>
-#include "vectorNode.h"
 class QBase : public QGraphicsView
 {
     Q_OBJECT
     bool step=false;
+    bool stop=false;
+    int delay=300;
 public:
     QBase();
     QGraphicsScene* getScene(void);
@@ -30,11 +31,16 @@ public:
     void UnmakeStepRegime();
     bool getStepRegime();
 
+    bool isStop(void);
+    void Stop(void);
     virtual std::vector<std::vector<int>> getSteps()=0;
     virtual void setFirstStep()=0;
     virtual void setNextStep()=0;
     virtual void setPrevStep()=0;
 
+    void setDelay(int del);
+    int getDelay();
+    void wait(int interval);
 signals:
 
 };

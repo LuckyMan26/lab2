@@ -35,7 +35,10 @@ class MainWindow : public QMainWindow
     QPushButton* btnNxt;
     QPushButton* btnPrev;
 
-
+    QMenu* mainMenu;
+    QMenu* fileMenu;
+    QMenu* sortingMenu;
+    QMenu* createRandMenu;
     QAction* newAct;
 
 public:
@@ -54,16 +57,20 @@ public:
     void deleteData(int x=0);
     void nxtStep();
     void prevStep();
-    bool activeMdiChild();
+    bool activeMdiChild(void);
+    bool isLinkedListWindow(void);
+    bool isVectorWindow(void);
     QBase* createLinkedList();
     QBase* createVector();
-
+    QBase* createBST();
+    void stop(void);
+    void EnableMenus(void);
     void on_actionLinkedList_triggered();
 
     void on_actionVector_triggered();
 
     void on_actionBubbleSort_triggered();
-
+    void disableMenus();
     void on_actionCreate_Random_triggered();
 
     void on_actionBubbleSort_2_triggered();
@@ -81,6 +88,10 @@ public:
     void on_actionSteps_triggered();
 
     void on_actionSteps_3_triggered();
+
+    void on_actionDelay_triggered();
+
+    void on_actionBST_triggered();
 
 private:
     Ui::MainWindow *ui;
